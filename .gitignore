@@ -1,0 +1,6 @@
+# Intellij IDEA settings
+.idea/
+
+# Maven generated files
+target/
+pom.xml.lock
