@@ -9,6 +9,7 @@
 
     <modules>
         <module>deployment</module>
+        <module>integration-tests</module>
         <module>runtime</module>
     </modules>
 
@@ -20,6 +21,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <quarkus.version>3.9.4</quarkus.version>
         <surefire-plugin.version>3.2.5</surefire-plugin.version>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+
     </properties>
 
     <dependencyManagement>
