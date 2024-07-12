@@ -37,4 +37,12 @@ public class ExampleCodeGeneratorProcessor {
         resourceProducer.produce(new GeneratedResourceBuildItem(FILE_NAME, FILE_CONTENT.getBytes()));
     }
 
+    public static String getFileName() {
+        return FILE_NAME;
+    }
+
+    public static String getFileContent() {
+        return FILE_CONTENT;
+    }
+
 }
