@@ -24,9 +24,10 @@
 //    @Test
 //    public void testFileGeneration() throws IOException {
 //        //String outputDir = System.getProperty("java.io.tmpdir") + "/quarkus-unit-test-output";
-////        String projectBaseDir = System.getProperty("user.dir");
-////        String outputDir = projectBaseDir + "integration-tests/target";
-//        String outputDir = System.getProperty("user.dir") + "/integration-tests/target";
+//        String projectBaseDir = System.getProperty("user.dir");
+//        String outputDir = projectBaseDir + "/target";
+//        //String outputDir = System.getProperty("user.dir") + "/integration-tests/target";
+//
 //
 //        File generatedFile = new File(outputDir, ExampleCodeGeneratorProcessor.getFileName());
 //
