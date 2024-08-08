@@ -1,10 +1,9 @@
 package org.jpristas.thesis.quarkus.multiconfig.env.deployment;
 
 import io.quarkus.arc.deployment.ConfigPropertyBuildItem;
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.Produce;
-import io.quarkus.deployment.builditem.ApplicationArchivesBuildItem;
+import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
@@ -13,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+@ApplicationScoped
 public class ExampleConfigReaderProcessor {
 
     private static final Logger LOG = Logger.getLogger(ExampleConfigReaderProcessor.class);
@@ -24,7 +24,7 @@ public class ExampleConfigReaderProcessor {
     public void readApplicationProperties() {
 
         Config config = ConfigProvider.getConfig();
-        String configFilePath = config.getValue("example.configreader.file.path", String.class);
+        String configFilePath = config.getValue("example.config-reader.file.path", String.class);
         LOG.info("Config file path: " + configFilePath);
         Path path = Path.of(configFilePath);
 

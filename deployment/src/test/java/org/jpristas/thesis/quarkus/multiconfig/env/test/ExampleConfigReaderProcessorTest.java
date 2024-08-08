@@ -1,6 +1,7 @@
 package org.jpristas.thesis.quarkus.multiconfig.env.test;
 
 import io.quarkus.test.QuarkusUnitTest;
+import jakarta.inject.Inject;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.ExampleConfigReaderProcessor;
@@ -19,9 +20,11 @@ public class ExampleConfigReaderProcessorTest {
                     .addClasses(ExampleConfigReaderProcessor.class)
                     .addAsResource("test-config-file.txt"));
 
+    @Inject
+    ExampleConfigReaderProcessor processor;
+
     @Test
     public void testReadApplicationProperties() throws IOException {
-        ExampleConfigReaderProcessor processor = new ExampleConfigReaderProcessor();
 
         processor.readApplicationProperties();
 

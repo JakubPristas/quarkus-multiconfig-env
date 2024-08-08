@@ -14,7 +14,6 @@ class QuarkusMulticonfigEnvProcessor {
 
     @BuildStep
     FeatureBuildItem feature() {
-        LOGGER.info("Logged text");
         return new FeatureBuildItem(FEATURE);
     }
 
