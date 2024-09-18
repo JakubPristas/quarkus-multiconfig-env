@@ -1,6 +1,7 @@
 package org.jpristas.thesis.quarkus.multiconfig.env.deployment;
 
 import io.quarkus.arc.deployment.ConfigPropertyBuildItem;
+import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.annotations.Produce;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -30,8 +31,9 @@ public class ExampleConfigReaderProcessor {
 
         if (Files.exists(path)) {
             try {
-                fileContent = Files.readString(path);
+                fileContent = Files.readString(path) + "\nquarkus.datasource.username=dbuser";
                 LOG.info("File content:\n" + fileContent);
+                //dataProducer.produce(new ConfigDataBuildItem(fileContent));
             } catch (IOException e) {
                 LOG.error("Failed to read file", e);
                 fileContent = "";
@@ -41,7 +43,7 @@ public class ExampleConfigReaderProcessor {
         }
     }
 
-    public String getFileContent() {
+    public static String getFileContent() {
         return fileContent;
     }
 }
