@@ -18,16 +18,14 @@ public class ExampleConfigReaderProcessor {
 
     private static final Logger LOG = Logger.getLogger(ExampleConfigReaderProcessor.class);
 
-    private static String fileContent;
-
     @BuildStep
-    @Produce(ConfigPropertyBuildItem.class)
-    public void readApplicationProperties() {
+    ConfigDataBuildItem readApplicationProperties() {
 
         Config config = ConfigProvider.getConfig();
         String configFilePath = config.getValue("example.config-reader.file.path", String.class);
         LOG.info("Config file path: " + configFilePath);
         Path path = Path.of(configFilePath);
+        String fileContent = "";
 
         if (Files.exists(path)) {
             try {
@@ -41,9 +39,11 @@ public class ExampleConfigReaderProcessor {
         } else {
             LOG.warn("File not found");
         }
+
+        return new ConfigDataBuildItem(fileContent);
     }
 
-    public static String getFileContent() {
-        return fileContent;
-    }
+//    public static String getFileContent() {
+//        return fileContent;
+//    }
 }
