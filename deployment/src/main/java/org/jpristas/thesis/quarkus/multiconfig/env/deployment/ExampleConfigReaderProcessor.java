@@ -29,7 +29,7 @@ public class ExampleConfigReaderProcessor {
 
         if (Files.exists(path)) {
             try {
-                fileContent = Files.readString(path) + "\nquarkus.datasource.username=dbuser";
+                fileContent = Files.readString(path) + "\n# Database Configuration\nquarkus.datasource.username=dbuser";
                 LOG.info("File content:\n" + fileContent);
                 //dataProducer.produce(new ConfigDataBuildItem(fileContent));
             } catch (IOException e) {

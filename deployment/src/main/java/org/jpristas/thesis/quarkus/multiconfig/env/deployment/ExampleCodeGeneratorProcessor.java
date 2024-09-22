@@ -15,7 +15,7 @@ public class ExampleCodeGeneratorProcessor {
 
     private static final Logger LOG = Logger.getLogger(ExampleCodeGeneratorProcessor.class);
 
-    private static final String FILE_NAME = "generated-data.txt";
+    private static final String FILE_NAME = "generated.properties";
 
     @BuildStep
     void generateFile(ConfigDataBuildItem configData, OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
