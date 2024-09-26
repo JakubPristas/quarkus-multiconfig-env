@@ -10,6 +10,7 @@
     <modules>
         <module>deployment</module>
         <module>integration-tests</module>
+        <module>prop-doc</module>
         <module>runtime</module>
     </modules>
 
