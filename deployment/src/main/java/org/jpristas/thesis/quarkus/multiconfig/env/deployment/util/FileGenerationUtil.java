@@ -1,0 +1,45 @@
+package org.jpristas.thesis.quarkus.multiconfig.env.deployment.util;
+
+import io.quarkus.deployment.builditem.GeneratedResourceBuildItem;
+import io.quarkus.deployment.pkg.builditem.OutputTargetBuildItem;
+import io.quarkus.deployment.annotations.BuildProducer;
+import org.jboss.logging.Logger;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import ca.mrvisser.propdoc.api.PropDoc;
+import ca.mrvisser.propdoc.api.PropDocWriter;
+import ca.mrvisser.propdoc.impl.writer.VelocityPropDocWriterImpl;
+
+public class FileGenerationUtil {
+    private static final Logger LOG = Logger.getLogger(FileGenerationUtil.class);
+
+    public static void generateFile(String fileContent, String templatePath, String outputFileName, String targetEnvironment,
+                                    OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
+
+        Path outputPath = Paths.get(outputTarget.getOutputDirectory().toString(), outputFileName);
+
+        File outputFile = outputPath.toFile();
+        if (!outputFile.getParentFile().exists() && !outputFile.getParentFile().mkdirs()) {
+            LOG.error("Failed to create directories for " + outputFile.getAbsolutePath());
+            return;
+        }
+
+        try (OutputStream out = new FileOutputStream(outputFile)) {
+            PropDoc propDoc = new PropDoc(new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8)));
+            PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, false);
+            propDocWriter.write(propDoc, out);
+            LOG.info("File generated and processed with PropDoc successfully: " + outputFile.getAbsolutePath());
+        } catch (Exception e) {
+            LOG.error("Failed to generate file for template: " + templatePath, e);
+        }
+
+        byte[] generatedFileContent = Files.readAllBytes(outputPath);
+        resourceProducer.produce(new GeneratedResourceBuildItem(outputFileName, generatedFileContent));
+        LOG.info("Resource registered successfully: " + outputFileName);
+    }
+}

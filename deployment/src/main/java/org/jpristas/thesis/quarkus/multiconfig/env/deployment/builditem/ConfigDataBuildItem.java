@@ -1,4 +1,4 @@
-package org.jpristas.thesis.quarkus.multiconfig.env.deployment;
+package org.jpristas.thesis.quarkus.multiconfig.env.deployment.builditem;
 
 import io.quarkus.builder.item.SimpleBuildItem;
 

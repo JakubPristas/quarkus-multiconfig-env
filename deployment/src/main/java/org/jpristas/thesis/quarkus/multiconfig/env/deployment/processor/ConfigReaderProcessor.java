@@ -1,22 +1,20 @@
-package org.jpristas.thesis.quarkus.multiconfig.env.deployment;
+package org.jpristas.thesis.quarkus.multiconfig.env.deployment.processor;
 
-import io.quarkus.arc.deployment.ConfigPropertyBuildItem;
-import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
-import io.quarkus.deployment.annotations.Produce;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
 import org.jboss.logging.Logger;
+import org.jpristas.thesis.quarkus.multiconfig.env.deployment.builditem.ConfigDataBuildItem;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 @ApplicationScoped
-public class ExampleConfigReaderProcessor {
+public class ConfigReaderProcessor {
 
-    private static final Logger LOG = Logger.getLogger(ExampleConfigReaderProcessor.class);
+    private static final Logger LOG = Logger.getLogger(ConfigReaderProcessor.class);
 
     @BuildStep
     ConfigDataBuildItem readApplicationProperties() {
