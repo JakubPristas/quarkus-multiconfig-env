@@ -34,16 +34,28 @@ public class ConfigGeneratorProcessor {
 
         String targetEnvironment = properties.getProperty("quarkus.prop-doc.target_environment", "dev");
 
+        String cmFileName = properties.getProperty("quarkus.prop-doc.cm.file-name");
+        if (cmFileName == null || cmFileName.trim().isEmpty()) {
+            cmFileName = "default.cm";
+        }
+        String envFileName = properties.getProperty("quarkus.prop-doc.env.file-name");
+        if (envFileName == null || envFileName.trim().isEmpty()) {
+            envFileName = "default.env";
+        }
+        String propFileName = properties.getProperty("quarkus.prop-doc.prop.file-name");
+        if (propFileName == null || propFileName.trim().isEmpty()) {
+            propFileName = "default.properties";
+        }
         String fileContent = configData.getFileContent();
 
         if (templatesToGenerate.contains("cm")) {
-            new CmFileGenerator().generateFile(fileContent, targetEnvironment, outputTarget, resourceProducer);
+            new CmFileGenerator().generateFile(fileContent, targetEnvironment, cmFileName, outputTarget, resourceProducer);
         }
         if (templatesToGenerate.contains("env")) {
-            new EnvFileGenerator().generateFile(fileContent, targetEnvironment, outputTarget, resourceProducer);
+            new EnvFileGenerator().generateFile(fileContent, targetEnvironment, envFileName, outputTarget, resourceProducer);
         }
         if (templatesToGenerate.contains("prop")) {
-            new PropertiesFileGenerator().generateFile(fileContent, targetEnvironment, outputTarget, resourceProducer);
+            new PropertiesFileGenerator().generateFile(fileContent, targetEnvironment, propFileName, outputTarget, resourceProducer);
         }
     }
 }

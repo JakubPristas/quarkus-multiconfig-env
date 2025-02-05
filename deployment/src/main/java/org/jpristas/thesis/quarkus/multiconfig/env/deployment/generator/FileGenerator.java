@@ -7,5 +7,11 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import java.io.IOException;
 
 public interface FileGenerator {
-    void generateFile(String fileContent, String targetEnvironment, OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException;
+    void generateFile(
+            String fileContent,
+            String targetEnvironment,
+            String fileName,
+            OutputTargetBuildItem outputTarget,
+            BuildProducer<GeneratedResourceBuildItem> resourceProducer
+    ) throws IOException;
 }

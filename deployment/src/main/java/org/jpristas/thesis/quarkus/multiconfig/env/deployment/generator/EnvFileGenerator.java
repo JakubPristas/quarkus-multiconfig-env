@@ -12,10 +12,10 @@ import java.io.IOException;
 public class EnvFileGenerator implements FileGenerator {
     private static final Logger LOG = Logger.getLogger(EnvFileGenerator.class);
     private static final String TEMPLATE_PATH = "classpath:templates/template.env.vm";
-    private static final String OUTPUT_FILE_NAME = "config.env";
+    //private static final String OUTPUT_FILE_NAME = "config.env";
 
     @Override
-    public void generateFile(String fileContent, String targetEnvironment, OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
-        FileGenerationUtil.generateFile(fileContent, TEMPLATE_PATH, OUTPUT_FILE_NAME, targetEnvironment, outputTarget, resourceProducer);
+    public void generateFile(String fileContent, String targetEnvironment, String fileName, OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
+        FileGenerationUtil.generateFile(fileContent, TEMPLATE_PATH, fileName, targetEnvironment, outputTarget, resourceProducer);
     }
 }
