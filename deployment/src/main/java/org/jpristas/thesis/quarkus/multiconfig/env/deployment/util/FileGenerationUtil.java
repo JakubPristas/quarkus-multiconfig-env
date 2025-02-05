@@ -22,6 +22,9 @@ public class FileGenerationUtil {
                                     OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
 
         Path outputPath = Paths.get(outputTarget.getOutputDirectory().toString(), outputFileName);
+        LOG.info("path: " + outputTarget.getOutputDirectory().toString());
+        LOG.info("outputFileName: " + outputFileName);
+        LOG.info("outputPath: " + outputPath);
 
         File outputFile = outputPath.toFile();
         if (!outputFile.getParentFile().exists() && !outputFile.getParentFile().mkdirs()) {

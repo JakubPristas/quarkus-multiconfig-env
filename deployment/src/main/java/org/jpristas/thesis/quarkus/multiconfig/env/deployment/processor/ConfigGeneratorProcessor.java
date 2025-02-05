@@ -12,6 +12,8 @@ import org.jpristas.thesis.quarkus.multiconfig.env.deployment.generator.Properti
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 public class ConfigGeneratorProcessor {
@@ -27,21 +29,20 @@ public class ConfigGeneratorProcessor {
         Properties properties = new Properties();
         properties.load(new StringReader(configData.getFileContent()));
 
-        boolean generateCmFile = Boolean.parseBoolean(properties.getProperty("quarkus.prop-doc.template_cm", "false"));
-        boolean generateEnvFile = Boolean.parseBoolean(properties.getProperty("quarkus.prop-doc.template_env", "false"));
-        boolean generatePropertiesFile = Boolean.parseBoolean(properties.getProperty("quarkus.prop-doc.template_properties", "false"));
+        String selectedTemplates = properties.getProperty("quarkus.prop-doc.selected-templates", "");
+        List<String> templatesToGenerate = Arrays.asList(selectedTemplates.split(","));
 
         String targetEnvironment = properties.getProperty("quarkus.prop-doc.target_environment", "dev");
 
         String fileContent = configData.getFileContent();
 
-        if (generateCmFile) {
+        if (templatesToGenerate.contains("cm")) {
             new CmFileGenerator().generateFile(fileContent, targetEnvironment, outputTarget, resourceProducer);
         }
-        if (generateEnvFile) {
+        if (templatesToGenerate.contains("env")) {
             new EnvFileGenerator().generateFile(fileContent, targetEnvironment, outputTarget, resourceProducer);
         }
-        if (generatePropertiesFile) {
+        if (templatesToGenerate.contains("prop")) {
             new PropertiesFileGenerator().generateFile(fileContent, targetEnvironment, outputTarget, resourceProducer);
         }
     }
