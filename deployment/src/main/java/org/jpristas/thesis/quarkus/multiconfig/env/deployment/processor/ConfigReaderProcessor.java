@@ -40,8 +40,4 @@ public class ConfigReaderProcessor {
 
         return new ConfigDataBuildItem(fileContent);
     }
-
-//    public static String getFileContent() {
-//        return fileContent;
-//    }
 }
