@@ -6,6 +6,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import org.jboss.logging.Logger;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDoc;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDocWriter;
+import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer.QutePropDocWriterImpl;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer.VelocityPropDocWriterImpl;
 
 import java.io.*;
@@ -17,7 +18,6 @@ import java.nio.file.Paths;
 //import ca.mrvisser.propdoc.api.PropDoc;
 //import ca.mrvisser.propdoc.api.PropDocWriter;
 //import ca.mrvisser.propdoc.impl.writer.VelocityPropDocWriterImpl;
-
 public class FileGenerationUtil {
     private static final Logger LOG = Logger.getLogger(FileGenerationUtil.class);
 
@@ -37,7 +37,9 @@ public class FileGenerationUtil {
 
         try (OutputStream out = new FileOutputStream(outputFile)) {
             PropDoc propDoc = new PropDoc(new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8)));
-            PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, false);
+            LOG.info("DEBUG, propdoc object: ");
+            //PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, false);
+            PropDocWriter propDocWriter = new QutePropDocWriterImpl(templatePath, targetEnvironment, false);
             propDocWriter.write(propDoc, out);
             LOG.info("File generated and processed with PropDoc successfully: " + outputFile.getAbsolutePath());
         } catch (Exception e) {

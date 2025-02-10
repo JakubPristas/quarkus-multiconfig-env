@@ -1,0 +1,12 @@
+{! This Qute template is used for generating a .properties file !}
+{#each envVars env}
+    {#if env.description}
+    #--- {env.description} ---#
+    {/if}
+    {#if env.required}
+    {env.originalName}={env.prodValue}
+    {else}
+    # {env.originalName}={env.prodValue}
+    {/if}
+
+{/each}

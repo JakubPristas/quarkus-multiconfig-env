@@ -46,6 +46,12 @@
             <version>1.7</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-qute-deployment</artifactId>
+            <version>${quarkus.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>

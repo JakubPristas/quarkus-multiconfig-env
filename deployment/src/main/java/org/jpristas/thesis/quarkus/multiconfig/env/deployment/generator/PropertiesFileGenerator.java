@@ -10,7 +10,8 @@ import java.io.IOException;
 
 public class PropertiesFileGenerator implements FileGenerator {
     private static final Logger LOG = Logger.getLogger(PropertiesFileGenerator.class);
-    private static final String TEMPLATE_PATH = "classpath:templates/template.properties.vm";
+    //private static final String TEMPLATE_PATH = "classpath:templates/template.properties.vm";
+    private static final String TEMPLATE_PATH = "classpath:templates/template.properties.qute";
     //private static final String OUTPUT_FILE_NAME = "config.properties";
 
     @Override
