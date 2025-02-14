@@ -1,0 +1,4 @@
+{#if dbUser}
+Database user: {dbUser}
+{/if}
+Additional property: {someKey}
