@@ -42,8 +42,11 @@ public class QutePropDocWriterImpl implements PropDocWriter {
         Log.info("buildContext: " + context);
         Engine engine = Engine.builder().addDefaults().build();
         Template template;
-        try (InputStream is = getClass().getResourceAsStream("/templates/testing-template.qute")) {
-            if (is == null) {
+        Log.info("templateFile: " + templateFile);
+        //try (InputStream is = getClass().getResourceAsStream("/templates/testing-template.qute")) {
+        try (InputStream is = getClass().getResourceAsStream(templateFile)) {
+
+                if (is == null) {
                 throw new IOException("Template file not found: " + templateFile);
             }
             String templateContent = new String(is.readAllBytes(), StandardCharsets.UTF_8);

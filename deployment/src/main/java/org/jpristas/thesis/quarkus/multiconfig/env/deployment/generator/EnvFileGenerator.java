@@ -11,7 +11,9 @@ import java.io.IOException;
 
 public class EnvFileGenerator implements FileGenerator {
     private static final Logger LOG = Logger.getLogger(EnvFileGenerator.class);
-    private static final String TEMPLATE_PATH = "classpath:templates/template.env.vm";
+//    private static final String TEMPLATE_PATH = "classpath:templates/template.env.vm";
+    private static final String TEMPLATE_PATH = "/templates/template.env.qute";
+
     //private static final String OUTPUT_FILE_NAME = "config.env";
 
     @Override

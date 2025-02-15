@@ -10,7 +10,9 @@ import java.io.IOException;
 
 public class CmFileGenerator implements FileGenerator {
     private static final Logger LOG = Logger.getLogger(CmFileGenerator.class);
-    private static final String TEMPLATE_PATH = "classpath:templates/template.cm.vm";
+//    private static final String TEMPLATE_PATH = "classpath:templates/template.cm.vm";
+    private static final String TEMPLATE_PATH = "/templates/template.cm.qute";
+
     //private static final String OUTPUT_FILE_NAME = "config.cm";
 
     @Override
