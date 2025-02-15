@@ -58,6 +58,7 @@ public class QuteTemplateGeneratorProcessor {
 
             // Parse the String
             template = engine.parse(templateContent);
+            LOG.info("template: " + template);
 
         } catch (Exception e) {
             LOG.error("Failed to read Qute template from /templates/my-template.qute", e);
