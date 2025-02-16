@@ -35,7 +35,7 @@ public class FileGenerationUtil {
         try (OutputStream out = new FileOutputStream(outputFile)) {
             PropDoc propDoc = new PropDoc(new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8)));
             propDoc.print(propDoc);
-            //PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, false);
+            //PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, true);
             PropDocWriter propDocWriter = new QutePropDocWriterImpl(templatePath, targetEnvironment, false);
             propDocWriter.write(propDoc, out);
             LOG.info("File generated and processed with PropDoc successfully: " + outputFile.getAbsolutePath());

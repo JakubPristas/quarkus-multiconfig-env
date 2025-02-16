@@ -27,20 +27,15 @@ public class QutePropDocWriterImpl implements PropDocWriter {
         this.targetEnvironment = targetEnvironment;
         this.outputDescription = outputDescription;
     }
-    private String readTemplateContent() throws IOException {
-        InputStream is = getClass().getResourceAsStream(templateFile);
-        if (is == null) {
-            throw new IOException("Template file not found: " + templateFile);
-        }
-        return new String(is.readAllBytes(), StandardCharsets.UTF_8);
-    }
 
     @Override
     public void write(PropDoc propDoc, OutputStream out) throws IOException {
         Map<String, Object> context = buildContext(propDoc);
 
         Log.info("buildContext: " + context);
-        Engine engine = Engine.builder().addDefaults().build();
+        Engine engine = Engine.builder()
+                .addDefaults()
+                .build();
         Template template;
         Log.info("templateFile: " + templateFile);
         //try (InputStream is = getClass().getResourceAsStream("/templates/testing-template.qute")) {
@@ -89,7 +84,6 @@ public class QutePropDocWriterImpl implements PropDocWriter {
         context.put("envVars", envEntries);
         context.put("allAttributes", allAttributes);
         return context;
-        // java -Dpropdoc.output.path=C:\Projects\IBM\ekopol\prop-doc\.env -Dproperties.file.url=file:C:\Projects\IBM\ekopol\prop-doc\application.properties -Dvelocity.template.url=classpath:ca/mrvisser/propdoc/velocity/template.env.vm -jar .\target\prop-doc-1.0-SNAPSHOT-jar-with-dependencies.jar
     }
 
     private boolean filterProperty(Property property) {
