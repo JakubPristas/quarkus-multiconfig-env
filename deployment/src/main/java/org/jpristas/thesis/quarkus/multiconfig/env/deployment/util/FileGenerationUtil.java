@@ -18,8 +18,15 @@ import java.nio.file.Paths;
 public class FileGenerationUtil {
     private static final Logger LOG = Logger.getLogger(FileGenerationUtil.class);
 
-    public static void generateFile(String fileContent, String templatePath, String outputFileName, String targetEnvironment,
-                                    OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
+    public static void generateFile(
+            String fileContent,
+            String templatePath,
+            String outputFileName,
+            String targetEnvironment,
+            boolean outputDescription,
+            OutputTargetBuildItem outputTarget,
+            BuildProducer<GeneratedResourceBuildItem> resourceProducer
+    ) throws IOException {
 
         Path outputPath = Paths.get(outputTarget.getOutputDirectory().toString(), outputFileName);
         LOG.info("path: " + outputTarget.getOutputDirectory().toString());
@@ -35,8 +42,8 @@ public class FileGenerationUtil {
         try (OutputStream out = new FileOutputStream(outputFile)) {
             PropDoc propDoc = new PropDoc(new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8)));
             propDoc.print(propDoc);
-            //PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, true);
-            PropDocWriter propDocWriter = new QutePropDocWriterImpl(templatePath, targetEnvironment, false);
+//            PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, true);
+            PropDocWriter propDocWriter = new QutePropDocWriterImpl(templatePath, targetEnvironment, outputDescription);
             propDocWriter.write(propDoc, out);
             LOG.info("File generated and processed with PropDoc successfully: " + outputFile.getAbsolutePath());
         } catch (Exception e) {

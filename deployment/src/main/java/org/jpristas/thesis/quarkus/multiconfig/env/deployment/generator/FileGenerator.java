@@ -11,6 +11,7 @@ public interface FileGenerator {
             String fileContent,
             String targetEnvironment,
             String fileName,
+            boolean outputDescription,
             OutputTargetBuildItem outputTarget,
             BuildProducer<GeneratedResourceBuildItem> resourceProducer
     ) throws IOException;

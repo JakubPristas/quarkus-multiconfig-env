@@ -48,17 +48,18 @@ public class ConfigGeneratorProcessor {
         }
         // TODO
         //String outputPathProperty = properties.getProperty("quarkus.prop-doc.output-path", "").trim();
+        boolean outputDescription = Boolean.parseBoolean(properties.getProperty("quarkus.prop-doc.output-description", "false"));
 
         String fileContent = configData.getFileContent();
 
         if (templatesToGenerate.contains("cm")) {
-            new CmFileGenerator().generateFile(fileContent, targetEnvironment, cmFileName, outputTarget, resourceProducer);
+            new CmFileGenerator().generateFile(fileContent, targetEnvironment, cmFileName, outputDescription, outputTarget, resourceProducer);
         }
         if (templatesToGenerate.contains("env")) {
-            new EnvFileGenerator().generateFile(fileContent, targetEnvironment, envFileName, outputTarget, resourceProducer);
+            new EnvFileGenerator().generateFile(fileContent, targetEnvironment, envFileName, outputDescription, outputTarget, resourceProducer);
         }
         if (templatesToGenerate.contains("prop")) {
-            new PropertiesFileGenerator().generateFile(fileContent, targetEnvironment, propFileName, outputTarget, resourceProducer);
+            new PropertiesFileGenerator().generateFile(fileContent, targetEnvironment, propFileName, outputDescription, outputTarget, resourceProducer);
         }
     }
 }
