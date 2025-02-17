@@ -46,7 +46,7 @@ public class ConfigGeneratorProcessor {
         if (propFileName == null || propFileName.trim().isEmpty()) {
             propFileName = "default.properties";
         }
-        // TODO
+
         String outputPathProperty = properties.getProperty("quarkus.prop-doc.output-path", "").trim();
         boolean outputDescription = Boolean.parseBoolean(properties.getProperty("quarkus.prop-doc.output-description", "false"));
 

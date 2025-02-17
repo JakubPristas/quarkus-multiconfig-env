@@ -58,7 +58,6 @@ public class VelocityPropDocWriterImpl implements PropDocWriter {
         context.put("envVars", envEntries);
         context.put("allAttributes", allAttributes);
         return context;
-        // java -Dpropdoc.output.path=C:\Projects\IBM\ekopol\prop-doc\.env -Dproperties.file.url=file:C:\Projects\IBM\ekopol\prop-doc\application.properties -Dvelocity.template.url=classpath:ca/mrvisser/propdoc/velocity/template.env.vm -jar .\target\prop-doc-1.0-SNAPSHOT-jar-with-dependencies.jar
     }
 
     private boolean filterProperty(Property property) {
