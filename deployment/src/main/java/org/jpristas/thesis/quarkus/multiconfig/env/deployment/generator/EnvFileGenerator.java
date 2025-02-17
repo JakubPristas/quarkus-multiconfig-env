@@ -11,11 +11,30 @@ import java.io.IOException;
 
 public class EnvFileGenerator implements FileGenerator {
     private static final Logger LOG = Logger.getLogger(EnvFileGenerator.class);
-    private static final String TEMPLATE_PATH = "classpath:templates/template.env.vm";
+//    private static final String TEMPLATE_PATH = "classpath:templates/velocity/template.env.vm";
+    private static final String TEMPLATE_PATH = "/templates/qute/template.env.qute";
+
     //private static final String OUTPUT_FILE_NAME = "config.env";
 
     @Override
-    public void generateFile(String fileContent, String targetEnvironment, String fileName, OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
-        FileGenerationUtil.generateFile(fileContent, TEMPLATE_PATH, fileName, targetEnvironment, outputTarget, resourceProducer);
+    public void generateFile(
+            String fileContent,
+            String targetEnvironment,
+            String fileName,
+            boolean outputDescription,
+            String outputPathProperty,
+            OutputTargetBuildItem outputTarget,
+            BuildProducer<GeneratedResourceBuildItem> resourceProducer
+    ) throws IOException {
+        FileGenerationUtil.generateFile(
+                fileContent,
+                TEMPLATE_PATH,
+                fileName,
+                targetEnvironment,
+                outputDescription,
+                outputPathProperty,
+                outputTarget,
+                resourceProducer
+        );
     }
 }

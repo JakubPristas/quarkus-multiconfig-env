@@ -1,0 +1,12 @@
+# This file was generated using Qute
+# Do not edit manually
+{#for env in envVars}
+{#if env.description??}
+#--- {env.description} ---#
+{/if}
+{#if env.required}
+{env.originalName}={env.prodValue}
+{#else}
+# {env.originalName}={env.prodValue}
+{/if}
+{/for}

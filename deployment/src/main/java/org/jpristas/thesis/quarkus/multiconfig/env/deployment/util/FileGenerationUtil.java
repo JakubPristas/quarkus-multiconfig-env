@@ -6,6 +6,7 @@ import io.quarkus.deployment.annotations.BuildProducer;
 import org.jboss.logging.Logger;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDoc;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDocWriter;
+import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer.QutePropDocWriterImpl;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer.VelocityPropDocWriterImpl;
 
 import java.io.*;
@@ -14,30 +15,36 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-//import ca.mrvisser.propdoc.api.PropDoc;
-//import ca.mrvisser.propdoc.api.PropDocWriter;
-//import ca.mrvisser.propdoc.impl.writer.VelocityPropDocWriterImpl;
-
 public class FileGenerationUtil {
     private static final Logger LOG = Logger.getLogger(FileGenerationUtil.class);
 
-    public static void generateFile(String fileContent, String templatePath, String outputFileName, String targetEnvironment,
-                                    OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
+    public static void generateFile(
+            String fileContent,
+            String templatePath,
+            String outputFileName,
+            String targetEnvironment,
+            boolean outputDescription,
+            String outputPathProperty,
+            OutputTargetBuildItem outputTarget,
+            BuildProducer<GeneratedResourceBuildItem> resourceProducer
+    ) throws IOException {
 
-        Path outputPath = Paths.get(outputTarget.getOutputDirectory().toString(), outputFileName);
-        LOG.info("path: " + outputTarget.getOutputDirectory().toString());
-        LOG.info("outputFileName: " + outputFileName);
-        LOG.info("outputPath: " + outputPath);
+        Path baseOutputDir = Paths.get(outputTarget.getOutputDirectory().toString());
+        Path customOutputPath = outputPathProperty.isEmpty() ? baseOutputDir : baseOutputDir.resolve(outputPathProperty);
+        Path outputPath = customOutputPath.resolve(outputFileName);
 
         File outputFile = outputPath.toFile();
         if (!outputFile.getParentFile().exists() && !outputFile.getParentFile().mkdirs()) {
             LOG.error("Failed to create directories for " + outputFile.getAbsolutePath());
             return;
         }
+        LOG.info("outputFile: " + outputFile);
 
         try (OutputStream out = new FileOutputStream(outputFile)) {
             PropDoc propDoc = new PropDoc(new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8)));
-            PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, false);
+            propDoc.print(propDoc);
+//            PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, true);
+            PropDocWriter propDocWriter = new QutePropDocWriterImpl(templatePath, targetEnvironment, outputDescription);
             propDocWriter.write(propDoc, out);
             LOG.info("File generated and processed with PropDoc successfully: " + outputFile.getAbsolutePath());
         } catch (Exception e) {

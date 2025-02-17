@@ -1,7 +1,8 @@
 package org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer;
 
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.VelocityEngine;
+import io.quarkus.logging.Log;
+import io.quarkus.qute.Engine;
+import io.quarkus.qute.Template;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDoc;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDocWriter;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.Property;
@@ -9,19 +10,19 @@ import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.util.Resou
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
-public class VelocityPropDocWriterImpl implements PropDocWriter {
+public class QutePropDocWriterImpl implements PropDocWriter {
+
     private static final String ALL_ENVIRONMENTS = "all";
     private static final String REQUIRED_KEY = "required";
     private static final String SUBSTITUTE_KEY_KEY = "key";
-
     private String templateFile;
     private String targetEnvironment;
     private boolean outputDescription;
 
-    public VelocityPropDocWriterImpl(String templateFile, String targetEnvironment,
-                                     boolean outputDescription) {
+    public QutePropDocWriterImpl(String templateFile, String targetEnvironment, boolean outputDescription) {
         this.templateFile = templateFile;
         this.targetEnvironment = targetEnvironment;
         this.outputDescription = outputDescription;
@@ -30,21 +31,46 @@ public class VelocityPropDocWriterImpl implements PropDocWriter {
     @Override
     public void write(PropDoc propDoc, OutputStream out) throws IOException {
         Map<String, Object> context = buildContext(propDoc);
-        VelocityEngine engine = new VelocityEngine();
 
-        try (Reader reader = createTemplateReader(); Writer writer = new OutputStreamWriter(out)) {
-            engine.evaluate(new VelocityContext(context), writer,
-                    String.format("[%s]", getClass().getName()), reader);
+        Log.info("buildContext: " + context);
+        Engine engine = Engine.builder()
+                .addDefaults()
+                .build();
+        Template template;
+        Log.info("templateFile: " + templateFile);
+        //try (InputStream is = getClass().getResourceAsStream("/templates/testing-template.qute")) {
+        try (InputStream is = getClass().getResourceAsStream(templateFile)) {
+
+                if (is == null) {
+                throw new IOException("Template file not found: " + templateFile);
+            }
+            String templateContent = new String(is.readAllBytes(), StandardCharsets.UTF_8);
+            template = engine.parse(templateContent);
+        }
+
+        List<Map<String, Object>> mappedEnvVars = new ArrayList<>();
+        for (ProdProperty property : (List<ProdProperty>) context.get("envVars")) {
+            Map<String, Object> propMap = new HashMap<>();
+            propMap.put("originalName", property.getOriginalName());
+            propMap.put("name", property.getName());
+            propMap.put("originalValue", property.getOriginalValue());
+            propMap.put("prodValue", property.getProdValue());
+            propMap.put("description", property.getDescription());
+            propMap.put("required", property.isRequired());
+            mappedEnvVars.add(propMap);
+        }
+
+        String renderedContent = template
+                .data("propDoc", context.get("propDoc"))
+                .data("envVars", mappedEnvVars)
+                .data("allAttributes", context.get("allAttributes"))
+                .render();
+
+        try (Writer writer = new OutputStreamWriter(out, StandardCharsets.UTF_8)) {
+            writer.write(renderedContent);
         }
     }
 
-    /**
-     * A class-path resource path that identifies the velocity template to use.
-     * @return
-     */
-    public String getTemplateFile() {
-        return templateFile;
-    }
 
     private Map<String, Object> buildContext(PropDoc propDoc) {
         Map<String, Object> context = new LinkedHashMap<>();
@@ -133,4 +159,11 @@ public class VelocityPropDocWriterImpl implements PropDocWriter {
         InputStream is = ResourceUtil.createInputStreamFromUrl(getTemplateFile());
         return new InputStreamReader(is);
     }
+
+    public String getTemplateFile() {
+        return templateFile;
+    }
+
 }
+
+
