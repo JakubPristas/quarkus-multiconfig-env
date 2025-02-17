@@ -24,20 +24,21 @@ public class FileGenerationUtil {
             String outputFileName,
             String targetEnvironment,
             boolean outputDescription,
+            String outputPathProperty,
             OutputTargetBuildItem outputTarget,
             BuildProducer<GeneratedResourceBuildItem> resourceProducer
     ) throws IOException {
 
-        Path outputPath = Paths.get(outputTarget.getOutputDirectory().toString(), outputFileName);
-        LOG.info("path: " + outputTarget.getOutputDirectory().toString());
-        LOG.info("outputFileName: " + outputFileName);
-        LOG.info("outputPath: " + outputPath);
+        Path baseOutputDir = Paths.get(outputTarget.getOutputDirectory().toString());
+        Path customOutputPath = outputPathProperty.isEmpty() ? baseOutputDir : baseOutputDir.resolve(outputPathProperty);
+        Path outputPath = customOutputPath.resolve(outputFileName);
 
         File outputFile = outputPath.toFile();
         if (!outputFile.getParentFile().exists() && !outputFile.getParentFile().mkdirs()) {
             LOG.error("Failed to create directories for " + outputFile.getAbsolutePath());
             return;
         }
+        LOG.info("outputFile: " + outputFile);
 
         try (OutputStream out = new FileOutputStream(outputFile)) {
             PropDoc propDoc = new PropDoc(new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8)));

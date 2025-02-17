@@ -47,19 +47,43 @@ public class ConfigGeneratorProcessor {
             propFileName = "default.properties";
         }
         // TODO
-        //String outputPathProperty = properties.getProperty("quarkus.prop-doc.output-path", "").trim();
+        String outputPathProperty = properties.getProperty("quarkus.prop-doc.output-path", "").trim();
         boolean outputDescription = Boolean.parseBoolean(properties.getProperty("quarkus.prop-doc.output-description", "false"));
 
         String fileContent = configData.getFileContent();
 
         if (templatesToGenerate.contains("cm")) {
-            new CmFileGenerator().generateFile(fileContent, targetEnvironment, cmFileName, outputDescription, outputTarget, resourceProducer);
+            new CmFileGenerator().generateFile(
+                    fileContent,
+                    targetEnvironment,
+                    cmFileName,
+                    outputDescription,
+                    outputPathProperty,
+                    outputTarget,
+                    resourceProducer
+            );
         }
         if (templatesToGenerate.contains("env")) {
-            new EnvFileGenerator().generateFile(fileContent, targetEnvironment, envFileName, outputDescription, outputTarget, resourceProducer);
+            new EnvFileGenerator().generateFile(
+                    fileContent,
+                    targetEnvironment,
+                    envFileName,
+                    outputDescription,
+                    outputPathProperty,
+                    outputTarget,
+                    resourceProducer
+            );
         }
         if (templatesToGenerate.contains("prop")) {
-            new PropertiesFileGenerator().generateFile(fileContent, targetEnvironment, propFileName, outputDescription, outputTarget, resourceProducer);
+            new PropertiesFileGenerator().generateFile(
+                    fileContent,
+                    targetEnvironment,
+                    propFileName,
+                    outputDescription,
+                    outputPathProperty,
+                    outputTarget,
+                    resourceProducer
+            );
         }
     }
 }

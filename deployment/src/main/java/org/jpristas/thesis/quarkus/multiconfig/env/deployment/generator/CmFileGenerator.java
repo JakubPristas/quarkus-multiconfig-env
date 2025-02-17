@@ -21,6 +21,7 @@ public class CmFileGenerator implements FileGenerator {
             String targetEnvironment,
             String fileName,
             boolean outputDescription,
+            String outputPathProperty,
             OutputTargetBuildItem outputTarget,
             BuildProducer<GeneratedResourceBuildItem> resourceProducer
     ) throws IOException {
@@ -30,6 +31,7 @@ public class CmFileGenerator implements FileGenerator {
                 fileName,
                 targetEnvironment,
                 outputDescription,
+                outputPathProperty,
                 outputTarget,
                 resourceProducer
         );
