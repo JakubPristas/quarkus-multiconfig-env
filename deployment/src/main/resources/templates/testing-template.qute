@@ -1,6 +1,0 @@
-# This file was generated using Qute
-# Do not edit manually
-
-{#for property in envVars}
-{property.originalName}={property.prodValue}
-{/for}
