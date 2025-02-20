@@ -32,12 +32,12 @@ public class QutePropDocWriterImpl implements PropDocWriter {
     public void write(PropDoc propDoc, OutputStream out) throws IOException {
         Map<String, Object> context = buildContext(propDoc);
 
-        Log.info("buildContext: " + context);
+        //Log.info("buildContext: " + context);
         Engine engine = Engine.builder()
                 .addDefaults()
                 .build();
         Template template;
-        Log.info("templateFile: " + templateFile);
+        //Log.info("templateFile: " + templateFile);
         //try (InputStream is = getClass().getResourceAsStream("/templates/testing-template.qute")) {
         try (InputStream is = getClass().getResourceAsStream(templateFile)) {
 

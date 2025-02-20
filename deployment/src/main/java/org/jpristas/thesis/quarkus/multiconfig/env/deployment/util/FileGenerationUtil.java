@@ -7,7 +7,6 @@ import org.jboss.logging.Logger;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDoc;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDocWriter;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer.QutePropDocWriterImpl;
-import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer.VelocityPropDocWriterImpl;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -38,12 +37,10 @@ public class FileGenerationUtil {
             LOG.error("Failed to create directories for " + outputFile.getAbsolutePath());
             return;
         }
-        LOG.info("outputFile: " + outputFile);
 
         try (OutputStream out = new FileOutputStream(outputFile)) {
             PropDoc propDoc = new PropDoc(new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8)));
             propDoc.print(propDoc);
-//            PropDocWriter propDocWriter = new VelocityPropDocWriterImpl(templatePath, targetEnvironment, true);
             PropDocWriter propDocWriter = new QutePropDocWriterImpl(templatePath, targetEnvironment, outputDescription);
             propDocWriter.write(propDoc, out);
             LOG.info("File generated and processed with PropDoc successfully: " + outputFile.getAbsolutePath());
