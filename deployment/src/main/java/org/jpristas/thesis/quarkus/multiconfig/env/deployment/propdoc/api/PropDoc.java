@@ -1,6 +1,6 @@
 package org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api;
 
-import org.apache.commons.io.IOUtils;
+//import org.apache.commons.io.IOUtils;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.parser.JavaPropertyFileTokenizer;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.parser.Token;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.parser.TokenEnumeration;
@@ -26,8 +26,8 @@ public class PropDoc implements Iterable<Property> {
     }
 
     public PropDoc(InputStream in) throws IOException {
-        byte[] fileContent = IOUtils.toByteArray(in);
-
+//        byte[] fileContent = IOUtils.toByteArray(in);
+        byte[] fileContent = in.readAllBytes();
         //first seed all the java properties and values using the java properties parser
         seedProperties(new ByteArrayInputStream(fileContent));
 

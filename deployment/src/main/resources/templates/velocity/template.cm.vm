@@ -1,8 +1,0 @@
-#set ($envs = $envVars)
-#foreach ($env in $envs)
-#if ($env.isRequired())
-$env.getName(): '$env.getProdValue()'
-#else
-# $env.getName(): '$env.getProdValue()'
-#end
-#end
