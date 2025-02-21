@@ -26,7 +26,7 @@ public class PropDocConfig {
         this.templatesToGenerate = Arrays.asList(
                 properties.getProperty("prop-doc.selected-templates", "").split(",")
         );
-        this.targetEnvironment = properties.getProperty("prop-doc.target_environment", "dev");
+        this.targetEnvironment = getPropertyOrDefault(properties,"prop-doc.target_environment", "dev");
         this.cmFileName = getPropertyOrDefault(properties, "prop-doc.cm.file-name", "default.cm");
         this.envFileName = getPropertyOrDefault(properties, "prop-doc.env.file-name", "default.env");
         this.propFileName = getPropertyOrDefault(properties, "prop-doc.prop.file-name", "default.properties");

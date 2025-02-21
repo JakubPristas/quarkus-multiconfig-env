@@ -1,6 +1,6 @@
 package org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer;
 
-import org.apache.commons.lang.StringUtils;
+//import org.apache.commons.lang.StringUtils;
 
 public class ProdProperty {
     private String originalName;
@@ -16,7 +16,8 @@ public class ProdProperty {
         this.name = originalName.replaceAll("\\W", "_").toUpperCase();
         this.originalValue = originalValue;
         this.prodValue = prodValue;
-        this.description = StringUtils.isBlank(description) ? "" : description;
+//        this.description = StringUtils.isBlank(description) ? "" : description;
+        this.description = (description == null || description.trim().isEmpty()) ? "" : description;
         this.required = required;
     }
 
