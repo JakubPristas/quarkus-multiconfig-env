@@ -1,12 +1,10 @@
 package org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer;
 
-import io.quarkus.logging.Log;
 import io.quarkus.qute.Engine;
 import io.quarkus.qute.Template;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDoc;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDocWriter;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.Property;
-import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.util.ResourceUtil;
 
 import java.io.*;
 import java.net.MalformedURLException;
@@ -153,11 +151,6 @@ public class QutePropDocWriterImpl implements PropDocWriter {
             allAttributes.addAll(property.getMetadataKeys());
         }
         return allAttributes;
-    }
-
-    private Reader createTemplateReader() throws MalformedURLException, IOException {
-        InputStream is = ResourceUtil.createInputStreamFromUrl(getTemplateFile());
-        return new InputStreamReader(is);
     }
 
     public String getTemplateFile() {
