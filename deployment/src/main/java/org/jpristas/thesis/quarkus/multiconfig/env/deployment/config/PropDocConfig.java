@@ -23,17 +23,25 @@ public class PropDocConfig {
             throw new RuntimeException("Failed to load configuration properties", e);
         }
 
-        this.templatesToGenerate = Arrays.asList(properties.getProperty("prop-doc.selected-templates", "").split(","));
+        this.templatesToGenerate = Arrays.asList(
+                properties.getProperty("prop-doc.selected-templates", "").split(",")
+        );
         this.targetEnvironment = properties.getProperty("prop-doc.target_environment", "dev");
         this.cmFileName = getPropertyOrDefault(properties, "prop-doc.cm.file-name", "default.cm");
         this.envFileName = getPropertyOrDefault(properties, "prop-doc.env.file-name", "default.env");
         this.propFileName = getPropertyOrDefault(properties, "prop-doc.prop.file-name", "default.properties");
         this.outputPath = properties.getProperty("prop-doc.output-path", "").trim();
-        this.outputDescription = Boolean.parseBoolean(properties.getProperty("prop-doc.output-description", "false"));
+        this.outputDescription = Boolean.parseBoolean(
+                properties.getProperty("prop-doc.output-description", "false")
+        );
     }
 
     private String getPropertyOrDefault(Properties properties, String key, String defaultValue) {
-        return properties.getProperty(key, defaultValue).trim();
+        String value = properties.getProperty(key);
+        if (value == null || value.trim().isEmpty()) {
+            return defaultValue;
+        }
+        return value.trim();
     }
 
     public List<String> getTemplatesToGenerate() {
