@@ -17,7 +17,7 @@ public class ConfigReaderProcessor {
     private static final Logger LOG = Logger.getLogger(ConfigReaderProcessor.class);
 
     @BuildStep
-    ConfigDataBuildItem readApplicationProperties() {
+    public ConfigDataBuildItem readApplicationProperties() {
 
         Config config = ConfigProvider.getConfig();
         String configFilePath = config.getValue("example.config-reader.file.path", String.class);
