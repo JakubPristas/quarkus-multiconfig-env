@@ -3,7 +3,6 @@ package org.jpristas.thesis.quarkus.multiconfig.env.test.util;
 import io.quarkus.deployment.builditem.GeneratedResourceBuildItem;
 import io.quarkus.deployment.pkg.builditem.OutputTargetBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
-import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDoc;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.util.FileGenerationUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,7 +49,7 @@ class FileGenerationUtilTest {
                 """;
 
         String templatePath = "/templates/qute/template.cm.qute";
-        String outputFileName = "my-configmap.yaml";
+        String outputFileName = "config.cm";
         String targetEnvironment = "dev";
         boolean outputDescription = true;
         String outputPathProperty = "subfolder";

@@ -21,18 +21,14 @@ public class ConfigReaderProcessorTest {
             prop-doc.env.file-name=config.env
             """;
 
-        // Create a temporary file with our mock config
         Path tempFile = Files.createTempFile("config", ".properties");
         Files.writeString(tempFile, mockConfig);
 
-        // Use a System property that ConfigReaderProcessor reads
         System.setProperty("example.config-reader.file.path", tempFile.toString());
 
-        // Instantiate the processor directly
         ConfigReaderProcessor processor = new ConfigReaderProcessor();
         ConfigDataBuildItem configDataBuildItem = processor.readApplicationProperties();
 
-        // Basic assertions
         assertNotNull(configDataBuildItem);
         assertEquals(mockConfig.trim(), configDataBuildItem.getFileContent().trim());
     }

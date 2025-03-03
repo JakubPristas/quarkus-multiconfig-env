@@ -43,71 +43,58 @@ class ConfigGeneratorProcessorTest {
 
     @Test
     void testNoContent_skipsGeneration() throws IOException {
-        // Given empty content
         ConfigDataBuildItem configData = new ConfigDataBuildItem("");
 
-        // When
         processor.generateFiles(configData, outputTarget, resourceProducer);
 
-        // Then: no interactions
         verifyNoInteractions(resourceProducer);
     }
 
     @Test
     void testGenerateAllTemplates() throws IOException {
-        // Given config data that selects cm, env, prop
         String fileContent = """
                 prop-doc.selected-templates=cm,env,prop
                 prop-doc.target_environment=dev
-                prop-doc.cm.file-name=configmap.yaml
+                prop-doc.cm.file-name=config.cm
                 prop-doc.env.file-name=my.env
                 prop-doc.prop.file-name=application.properties
                 prop-doc.output-description=true
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 
-        // When
         processor.generateFiles(configData, outputTarget, resourceProducer);
 
-        // Then: we expect 3 calls to produce() (one for each template)
         verify(resourceProducer, times(3)).produce(any(GeneratedResourceBuildItem.class));
     }
 
     @Test
     void testGenerateSomeTemplates() throws IOException {
-        // Given only cm and prop are selected
         String fileContent = """
                 prop-doc.selected-templates=cm,prop
                 prop-doc.target_environment=stage
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 
-        // When
         processor.generateFiles(configData, outputTarget, resourceProducer);
 
-        // Then: 2 calls (cm + prop)
         verify(resourceProducer, times(2)).produce(any(GeneratedResourceBuildItem.class));
     }
 
     @Test
     void testVerifyGeneratedResourceNames() throws IOException {
-        // Suppose we only generate cm to check the resource name
         String fileContent = """
                 prop-doc.selected-templates=cm
-                prop-doc.cm.file-name=myconfigmap.yaml
+                prop-doc.cm.file-name=myconfig.cm
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 
         processor.generateFiles(configData, outputTarget, resourceProducer);
 
-        // Capture the GeneratedResourceBuildItem argument to verify resource name
         ArgumentCaptor<GeneratedResourceBuildItem> captor =
                 ArgumentCaptor.forClass(GeneratedResourceBuildItem.class);
         verify(resourceProducer, times(1)).produce(captor.capture());
 
         GeneratedResourceBuildItem producedResource = captor.getValue();
-        // If FileGenerationUtil sets the item name to match the fileName,
-        // we can check it here:
-        assertEquals("myconfigmap.yaml", producedResource.getName());
+        assertEquals("myconfig.cm", producedResource.getName());
     }
 }
