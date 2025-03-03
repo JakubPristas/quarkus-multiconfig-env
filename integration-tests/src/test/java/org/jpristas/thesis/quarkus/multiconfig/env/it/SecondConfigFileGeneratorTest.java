@@ -13,16 +13,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @TestProfile(Test2Profile.class)
-public class AnotherFileGeneratorTest {
+public class SecondConfigFileGeneratorTest {
 
-    Path envFilePath = Paths.get("target/generated-sources/config-files/config.cm");
+    Path filePath = Paths.get("target/generated-sources/config-files/cm/config.cm");
 
     @Test
-    public void testGeneratedEnvFile() throws Exception {
-        assertTrue(Files.exists(envFilePath),
-                "The generated .env file should exist at " + envFilePath.toAbsolutePath());
+    public void testGeneratedCmFileForTestEnv() throws Exception {
+        assertTrue(Files.exists(filePath),
+                "The generated .env file should exist at " + filePath.toAbsolutePath());
 
-        String content = Files.readString(envFilePath, StandardCharsets.UTF_8);
+        String content = Files.readString(filePath, StandardCharsets.UTF_8);
 
         // Validate that the file contains the expected description and property value.
         assertTrue(content.contains("MY_PROPERTY: '1'"),

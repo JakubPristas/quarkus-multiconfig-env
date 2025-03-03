@@ -13,16 +13,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @TestProfile(Test1Profile.class)
-public class ConfigFileGeneratorTest {
+public class FirstConfigFileGeneratorTest {
 
-    Path envFilePath = Paths.get("target/generated-sources/config-files/.env");
+    Path filePath = Paths.get("target/generated-sources/config-files/env/.env");
 
     @Test
-    public void testGeneratedEnvFile() throws Exception {
-        assertTrue(Files.exists(envFilePath),
-                "The generated .env file should exist at " + envFilePath.toAbsolutePath());
+    public void testGeneratedEnvFileForIntEnv() throws Exception {
+        assertTrue(Files.exists(filePath),
+                "The generated .env file should exist at " + filePath.toAbsolutePath());
 
-        String content = Files.readString(envFilePath, StandardCharsets.UTF_8);
+        String content = Files.readString(filePath, StandardCharsets.UTF_8);
 
         // Validate that the file contains the expected description and property value.
         assertTrue(content.contains("#--- Description for my.property ---#"),
