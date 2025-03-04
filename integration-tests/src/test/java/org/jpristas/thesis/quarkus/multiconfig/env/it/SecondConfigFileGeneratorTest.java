@@ -20,13 +20,12 @@ public class SecondConfigFileGeneratorTest {
     @Test
     public void testGeneratedCmFileForTestEnv() throws Exception {
         assertTrue(Files.exists(filePath),
-                "The generated .env file should exist at " + filePath.toAbsolutePath());
+                "The generated config.cm file should exist at " + filePath.toAbsolutePath());
 
         String content = Files.readString(filePath, StandardCharsets.UTF_8);
 
-        // Validate that the file contains the expected description and property value.
         assertTrue(content.contains("MY_PROPERTY: '1'"),
-                "The generated file should contain MY_PROPERTY_KEY with value 1 for the 'int' target environment");
+                "The generated file should contain MY_PROPERTY with value 1 for the 'test' target environment");
 
     }
 

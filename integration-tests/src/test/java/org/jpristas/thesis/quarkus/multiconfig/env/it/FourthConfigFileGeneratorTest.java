@@ -24,11 +24,11 @@ public class FourthConfigFileGeneratorTest {
     @Test
     public void testGeneratedFilesWithDefaultNames() throws Exception {
         assertTrue(Files.exists(cmFilePath),
-                "The generated default.env file should exist at " + cmFilePath.toAbsolutePath());
+                "The generated default.cm file should exist at " + cmFilePath.toAbsolutePath());
         assertTrue(Files.exists(envFilePath),
                 "The generated default.env file should exist at " + envFilePath.toAbsolutePath());
         assertTrue(Files.exists(propFilePath),
-                "The generated default.env file should exist at " + propFilePath.toAbsolutePath());
+                "The generated default.properties file should exist at " + propFilePath.toAbsolutePath());
     }
 
     @Test

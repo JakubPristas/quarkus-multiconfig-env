@@ -24,11 +24,10 @@ public class ThirdConfigFileGeneratorTest {
 
         String content = Files.readString(filePath, StandardCharsets.UTF_8);
 
-        // Validate that the file contains the expected description and property value.
         assertTrue(content.contains("#--- Description for my.property ---#"),
                 "The generated file should contain the property description");
         assertTrue(content.contains("my.property=7"),
-                "The generated file should contain my.property with value 7 for the 'int' target environment");
+                "The generated file should contain my.property with value 7 for the 'dev' target environment");
 
     }
 }

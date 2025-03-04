@@ -24,7 +24,6 @@ public class FirstConfigFileGeneratorTest {
 
         String content = Files.readString(filePath, StandardCharsets.UTF_8);
 
-        // Validate that the file contains the expected description and property value.
         assertTrue(content.contains("#--- Description for my.property ---#"),
                 "The generated file should contain the property description");
         assertTrue(content.contains("MY_PROPERTY=5"),
