@@ -17,7 +17,7 @@ public class ConfigGeneratorProcessor {
     private static final Logger LOG = Logger.getLogger(ConfigGeneratorProcessor.class);
 
     @BuildStep
-    void generateFiles(ConfigDataBuildItem configData, OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
+    public void generateFiles(ConfigDataBuildItem configData, OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
         if (configData.getFileContent().isEmpty()) {
             LOG.warn("No configuration data available. Skipping file generation.");
             return;
