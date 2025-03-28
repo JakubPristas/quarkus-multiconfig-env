@@ -1,10 +1,10 @@
 package org.jpristas.thesis.quarkus.multiconfig.env.deployment.processor;
 
 import io.quarkus.deployment.annotations.BuildStep;
+import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.Config;
 import org.eclipse.microprofile.config.ConfigProvider;
-import org.jboss.logging.Logger;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.builditem.ConfigDataBuildItem;
 
 import java.io.IOException;
@@ -13,8 +13,6 @@ import java.nio.file.Path;
 
 @ApplicationScoped
 public class ConfigReaderProcessor {
-
-    private static final Logger LOG = Logger.getLogger(ConfigReaderProcessor.class);
 
     @BuildStep
     public ConfigDataBuildItem readApplicationProperties() {
@@ -28,11 +26,11 @@ public class ConfigReaderProcessor {
             try {
                 fileContent = Files.readString(path);
             } catch (IOException e) {
-                LOG.error("Failed to read file", e);
+                Log.error("Failed to read file", e);
                 fileContent = "";
             }
         } else {
-            LOG.warn("File not found");
+            Log.warn("File not found");
         }
 
         return new ConfigDataBuildItem(fileContent);

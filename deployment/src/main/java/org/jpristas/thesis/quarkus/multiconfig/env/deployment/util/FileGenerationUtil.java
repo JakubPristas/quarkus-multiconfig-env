@@ -3,7 +3,7 @@ package org.jpristas.thesis.quarkus.multiconfig.env.deployment.util;
 import io.quarkus.deployment.builditem.GeneratedResourceBuildItem;
 import io.quarkus.deployment.pkg.builditem.OutputTargetBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
-import org.jboss.logging.Logger;
+import io.quarkus.logging.Log;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDoc;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.api.PropDocWriter;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.propdoc.impl.writer.QutePropDocWriterImpl;
@@ -15,8 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class FileGenerationUtil {
-    private static final Logger LOG = Logger.getLogger(FileGenerationUtil.class);
-
     public static void generateFile(
             String fileContent,
             String templatePath,
@@ -34,7 +32,7 @@ public class FileGenerationUtil {
 
         File outputFile = outputPath.toFile();
         if (!outputFile.getParentFile().exists() && !outputFile.getParentFile().mkdirs()) {
-            LOG.error("Failed to create directories for " + outputFile.getAbsolutePath());
+            Log.error("Failed to create directories for " + outputFile.getAbsolutePath());
             return;
         }
 
@@ -43,13 +41,13 @@ public class FileGenerationUtil {
             //propDoc.print(propDoc);
             PropDocWriter propDocWriter = new QutePropDocWriterImpl(templatePath, targetEnvironment, outputDescription);
             propDocWriter.write(propDoc, out);
-            LOG.info("File generated and processed with PropDoc successfully: " + outputFile.getAbsolutePath());
+            Log.info("File generated and processed with PropDoc successfully: " + outputFile.getAbsolutePath());
         } catch (Exception e) {
-            LOG.error("Failed to generate file for template: " + templatePath, e);
+            Log.error("Failed to generate file for template: " + templatePath, e);
         }
 
         byte[] generatedFileContent = Files.readAllBytes(outputPath);
         resourceProducer.produce(new GeneratedResourceBuildItem(outputFileName, generatedFileContent));
-        LOG.info("Resource registered successfully: " + outputFileName);
+        Log.info("Resource registered successfully: " + outputFileName);
     }
 }
