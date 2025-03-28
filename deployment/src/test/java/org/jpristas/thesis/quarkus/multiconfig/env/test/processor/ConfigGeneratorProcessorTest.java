@@ -29,7 +29,6 @@ class ConfigGeneratorProcessorTest {
     void setUp(@TempDir Path tempDir) {
         processor = new ConfigGeneratorProcessor();
         resourceProducer = mock(BuildProducer.class);
-//        outputTarget = mock(OutputTargetBuildItem.class);
 
         outputTarget = new OutputTargetBuildItem(
                 tempDir,
@@ -53,12 +52,12 @@ class ConfigGeneratorProcessorTest {
     @Test
     void testGenerateAllTemplates() throws IOException {
         String fileContent = """
-                prop-doc.selected-templates=cm,env,prop
-                prop-doc.target_environment=dev
-                prop-doc.cm.file-name=config.cm
-                prop-doc.env.file-name=my.env
-                prop-doc.prop.file-name=application.properties
-                prop-doc.output-description=true
+                quarkus.multiconfig.selected-templates=cm,env,prop
+                quarkus.multiconfig.target-environment=dev
+                quarkus.multiconfig.cm-file-name=config.cm
+                quarkus.multiconfig.env-file-name=my.env
+                quarkus.multiconfig.properties-file-name=application.properties
+                quarkus.multiconfig.output-description=true
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 
@@ -70,8 +69,8 @@ class ConfigGeneratorProcessorTest {
     @Test
     void testGenerateSomeTemplates() throws IOException {
         String fileContent = """
-                prop-doc.selected-templates=cm,prop
-                prop-doc.target_environment=stage
+                quarkus.multiconfig.selected-templates=cm,prop
+                quarkus.multiconfig.target-environment=stage
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 
@@ -83,8 +82,8 @@ class ConfigGeneratorProcessorTest {
     @Test
     void testVerifyGeneratedResourceNames() throws IOException {
         String fileContent = """
-                prop-doc.selected-templates=cm
-                prop-doc.cm.file-name=myconfig.cm
+                quarkus.multiconfig.selected-templates=cm
+                quarkus.multiconfig.cm-file-name=myconfig.cm
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 

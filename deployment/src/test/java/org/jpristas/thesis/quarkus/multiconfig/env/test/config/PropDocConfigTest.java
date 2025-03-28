@@ -12,13 +12,13 @@ class PropDocConfigTest {
     @Test
     void testValidProperties() {
         String content = """
-            prop-doc.selected-templates=cm,env,prop
-            prop-doc.target_environment=prod
-            prop-doc.cm.file-name=myconfig.cm
-            prop-doc.env.file-name=myconfig.env
-            prop-doc.prop.file-name=myconfig.properties
-            prop-doc.output-description=true
-            prop-doc.output-path=/opt/app/config
+            quarkus.multiconfig.selected-templates=cm,env,prop
+            quarkus.multiconfig.target-environment=prod
+            quarkus.multiconfig.cm-file-name=myconfig.cm
+            quarkus.multiconfig.env-file-name=myconfig.env
+            quarkus.multiconfig.properties-file-name=myconfig.properties
+            quarkus.multiconfig.output-description=true
+            quarkus.multiconfig.output-path=/opt/app/config
             """;
 
         PropDocConfig config = new PropDocConfig(content);
@@ -38,7 +38,7 @@ class PropDocConfigTest {
 
     @Test
     void testDefaults() {
-        String content = "prop-doc.selected-templates=cm";
+        String content = "quarkus.multiconfig.selected-templates=cm";
 
         PropDocConfig config = new PropDocConfig(content);
 
@@ -52,7 +52,7 @@ class PropDocConfigTest {
 
     @Test
     void testEmptyTemplates() {
-        String content = "prop-doc.selected-templates=";
+        String content = "quarkus.multiconfig.selected-templates=";
 
         PropDocConfig config = new PropDocConfig(content);
 

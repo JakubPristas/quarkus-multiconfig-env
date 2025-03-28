@@ -18,7 +18,7 @@ public class ConfigReaderProcessor {
     public ConfigDataBuildItem readApplicationProperties() {
 
         Config config = ConfigProvider.getConfig();
-        String configFilePath = config.getValue("example.config-reader.file.path", String.class);
+        String configFilePath = config.getValue("quarkus.multiconfig.source-file-path", String.class);
         Path path = Path.of(configFilePath);
         String fileContent = "";
 

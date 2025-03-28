@@ -15,16 +15,16 @@ public class ConfigReaderProcessorTest {
     @Test
     void testConfigReaderProcessor() throws IOException {
         String mockConfig = """
-            prop-doc.selected-templates=cm,env
-            prop-doc.target_environment=prod
-            prop-doc.cm.file-name=config.cm
-            prop-doc.env.file-name=config.env
+            quarkus.multiconfig.selected-templates=cm,env
+            quarkus.multiconfig.target-environment=prod
+            quarkus.multiconfig.cm-file-name=config.cm
+            quarkus.multiconfig.env-file-name=config.env
             """;
 
         Path tempFile = Files.createTempFile("config", ".properties");
         Files.writeString(tempFile, mockConfig);
 
-        System.setProperty("example.config-reader.file.path", tempFile.toString());
+        System.setProperty("quarkus.multiconfig.source-file-path", tempFile.toString());
 
         ConfigReaderProcessor processor = new ConfigReaderProcessor();
         ConfigDataBuildItem configDataBuildItem = processor.readApplicationProperties();

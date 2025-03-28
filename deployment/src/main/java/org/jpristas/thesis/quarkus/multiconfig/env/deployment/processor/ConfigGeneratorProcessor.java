@@ -5,6 +5,7 @@ import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.GeneratedResourceBuildItem;
 import io.quarkus.deployment.pkg.builditem.OutputTargetBuildItem;
 import io.quarkus.logging.Log;
+//import org.jpristas.thesis.quarkus.multiconfig.env.deployment.config.MultiConfigBuildTimeConfig;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.config.PropDocConfig;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.generator.CmFileGenerator;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.builditem.ConfigDataBuildItem;
@@ -15,12 +16,19 @@ import java.io.IOException;
 
 public class ConfigGeneratorProcessor {
     @BuildStep
-    public void generateFiles(ConfigDataBuildItem configData, OutputTargetBuildItem outputTarget, BuildProducer<GeneratedResourceBuildItem> resourceProducer) throws IOException {
+    public void generateFiles(
+            ConfigDataBuildItem configData,
+            OutputTargetBuildItem outputTarget,
+            BuildProducer<GeneratedResourceBuildItem> resourceProducer
+//            MultiConfigBuildTimeConfig multiConfig
+    ) throws IOException {
         if (configData.getFileContent().isEmpty()) {
             Log.warn("No configuration data available. Skipping file generation.");
             return;
         }
-
+        Log.info("fileContent: " + configData.getFileContent());
+//        Log.info("multiConfig: " + multiConfig.targetEnvironment);
+        Log.info("version: 6");
         PropDocConfig config = new PropDocConfig(configData.getFileContent());
 
         String fileContent = configData.getFileContent();
