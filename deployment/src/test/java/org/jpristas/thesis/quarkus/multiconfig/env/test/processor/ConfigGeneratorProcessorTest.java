@@ -32,10 +32,10 @@ class ConfigGeneratorProcessorTest {
 //        outputTarget = mock(OutputTargetBuildItem.class);
 
         outputTarget = new OutputTargetBuildItem(
-                tempDir,            // Path outputDirectory
-                "test-base-name",   // baseName
-                "test-base-name",   // originalBaseName
-                false,              // rebuild
+                tempDir,
+                "test-base-name",
+                "test-base-name",
+                false,
                 new Properties(),
                 Optional.empty()
         );

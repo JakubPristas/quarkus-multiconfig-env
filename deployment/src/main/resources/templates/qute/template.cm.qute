@@ -1,4 +1,3 @@
-# This file was generated using Qute
 {#for env in envVars}
 {#if env.required}
 {env.name}: '{env.prodValue}'
