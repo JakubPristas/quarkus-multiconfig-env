@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @TestProfile(Test4Profile.class)
-public class FourthConfigFileGeneratorTest {
+public class AllTemplatesFallbackToAllEnvTest {
     Path cmFilePath = Paths.get("target/generated-sources/config-files/all/default.cm");
     Path envFilePath = Paths.get("target/generated-sources/config-files/all/default.env");
     Path propFilePath = Paths.get("target/generated-sources/config-files/all/default.properties");

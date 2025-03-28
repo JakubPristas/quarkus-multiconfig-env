@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @TestProfile(Test2Profile.class)
-public class SecondConfigFileGeneratorTest {
+public class CmFileGenerationForTestEnvironmentTest {
 
     Path filePath = Paths.get("target/generated-sources/config-files/cm/config.cm");
 
