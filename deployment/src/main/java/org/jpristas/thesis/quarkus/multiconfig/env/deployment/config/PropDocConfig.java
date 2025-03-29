@@ -24,15 +24,15 @@ public class PropDocConfig {
         }
 
         this.templatesToGenerate = Arrays.asList(
-                properties.getProperty("prop-doc.selected-templates", "").split(",")
+                properties.getProperty("quarkus.multiconfig.selected-templates", "").split(",")
         );
-        this.targetEnvironment = getPropertyOrDefault(properties,"prop-doc.target_environment", "dev");
-        this.cmFileName = getPropertyOrDefault(properties, "prop-doc.cm.file-name", "default.cm");
-        this.envFileName = getPropertyOrDefault(properties, "prop-doc.env.file-name", "default.env");
-        this.propFileName = getPropertyOrDefault(properties, "prop-doc.prop.file-name", "default.properties");
-        this.outputPath = properties.getProperty("prop-doc.output-path", "").trim();
+        this.targetEnvironment = getPropertyOrDefault(properties,"quarkus.multiconfig.target-environment", "dev");
+        this.cmFileName = getPropertyOrDefault(properties, "quarkus.multiconfig.cm-file-name", "default.cm");
+        this.envFileName = getPropertyOrDefault(properties, "quarkus.multiconfig.env-file-name", "default.env");
+        this.propFileName = getPropertyOrDefault(properties, "quarkus.multiconfig.properties-file-name", "default.properties");
+        this.outputPath = properties.getProperty("quarkus.multiconfig.output-path", "").trim();
         this.outputDescription = Boolean.parseBoolean(
-                properties.getProperty("prop-doc.output-description", "false")
+                properties.getProperty("quarkus.multiconfig.output-description", "false")
         );
     }
 

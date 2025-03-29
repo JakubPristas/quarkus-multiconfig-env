@@ -3,5 +3,5 @@ package org.jpristas.thesis.quarkus.multiconfig.env.it;
 import io.quarkus.test.junit.QuarkusIntegrationTest;
 
 @QuarkusIntegrationTest
-public class SecondConfigFileGeneratorIT extends SecondConfigFileGeneratorTest {
+public class AllTemplatesFallbackToAllEnvIT extends AllTemplatesFallbackToAllEnvTest {
 }

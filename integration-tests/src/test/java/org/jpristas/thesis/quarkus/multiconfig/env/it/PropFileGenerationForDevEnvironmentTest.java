@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @TestProfile(Test3Profile.class)
-public class ThirdConfigFileGeneratorTest {
+public class PropFileGenerationForDevEnvironmentTest {
     Path filePath = Paths.get("target/generated-sources/config-files/prop/application.properties");
 
     @Test

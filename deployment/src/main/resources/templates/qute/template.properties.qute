@@ -1,5 +1,3 @@
-# This file was generated using Qute
-# Do not edit manually
 {#for env in envVars}
 {#if env.description??}
 #--- {env.description} ---#

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @QuarkusTest
 @TestProfile(Test1Profile.class)
-public class FirstConfigFileGeneratorTest {
+public class EnvFileGenerationForIntEnvironmentTest {
 
     Path filePath = Paths.get("target/generated-sources/config-files/env/.env");
 
