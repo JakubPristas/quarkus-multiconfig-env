@@ -31,19 +31,19 @@ public class GlobalConfig {
     /**
      * Name for .cm generated file.
      */
-    @ConfigItem(defaultValue = "default.cm")
+    @ConfigItem(defaultValue = "config.cm")
     public Optional<String> cmFileName;
 
     /**
      * Name for .env generated file.
      */
-    @ConfigItem(defaultValue = "default.env")
+    @ConfigItem(defaultValue = ".env")
     public Optional<String> envFileName;
 
     /**
      * Name for .prop generated file.
      */
-    @ConfigItem(defaultValue = "default.properties")
+    @ConfigItem(defaultValue = "application.properties")
     public Optional<String> propertiesFileName;
 
     /**
