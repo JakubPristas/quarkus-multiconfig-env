@@ -49,7 +49,7 @@ public class GlobalConfig {
     /**
      * Visibility description for each value in generated files.
      */
-    @ConfigItem(defaultValue = "false")
+    @ConfigItem(defaultValue = "true")
     public Optional<Boolean> outputDescription;
 
     /**
