@@ -15,9 +15,9 @@ import java.nio.file.Path;
 public class ConfigReaderProcessor {
 
     @BuildStep
-    public ConfigDataBuildItem readApplicationProperties(GlobalConfig multiConfig) {
+    public ConfigDataBuildItem readApplicationProperties(GlobalConfig globalConfig) {
 
-        String configFilePath = multiConfig.sourceFilePath;
+        String configFilePath = globalConfig.sourceFilePath;
 
         Path path = Path.of(configFilePath);
         String fileContent = "";
