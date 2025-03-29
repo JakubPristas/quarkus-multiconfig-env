@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.jpristas.thesis</groupId>
-        <artifactId>quarkus-multiconfig-env-parent</artifactId>
+        <artifactId>quarkus-multiconfig-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>quarkus-multiconfig-env-integration-tests</artifactId>
-    <name>Quarkus Multiconfig Env - Integration Tests</name>
+    <artifactId>quarkus-multiconfig-integration-tests</artifactId>
+    <name>Quarkus Multiconfig - Integration Tests</name>
 
     <properties>
         <skipITs>true</skipITs>
@@ -17,11 +17,11 @@
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
-            <artifactId>quarkus-resteasy-reactive</artifactId>
+            <artifactId>quarkus-rest</artifactId>
         </dependency>
         <dependency>
             <groupId>org.jpristas.thesis</groupId>
-            <artifactId>quarkus-multiconfig-env</artifactId>
+            <artifactId>quarkus-multiconfig</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>

@@ -4,16 +4,21 @@
 
     <parent>
         <groupId>org.jpristas.thesis</groupId>
-        <artifactId>quarkus-multiconfig-env-parent</artifactId>
+        <artifactId>quarkus-multiconfig-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>quarkus-multiconfig-env</artifactId>
-    <name>Quarkus Multiconfig Env - Runtime</name>
+    <artifactId>quarkus-multiconfig</artifactId>
+    <name>Quarkus Multiconfig - Runtime</name>
 
     <dependencies>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-arc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-qute</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
     </dependencies>
 
