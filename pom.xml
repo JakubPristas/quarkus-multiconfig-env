@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.jpristas.thesis</groupId>
-    <artifactId>quarkus-multiconfig-env-parent</artifactId>
+    <artifactId>quarkus-multiconfig-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Quarkus Multiconfig Env - Parent</name>
+    <name>Quarkus Multiconfig - Parent</name>
 
     <modules>
         <module>deployment</module>
@@ -99,7 +99,7 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>org/jpristas/thesis/quarkus/multiconfig/env/deployment/propdoc/**</exclude>
+                                <exclude>org/jpristas/thesis/quarkus/multiconfig/deployment/propdoc/**</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -111,7 +111,7 @@
                         </goals>
                         <configuration>
                             <excludes>
-                                <exclude>org/jpristas/thesis/quarkus/multiconfig/env/deployment/propdoc/**</exclude>
+                                <exclude>org/jpristas/thesis/quarkus/multiconfig/deployment/propdoc/**</exclude>
                             </excludes>
                         </configuration>
                     </execution>
