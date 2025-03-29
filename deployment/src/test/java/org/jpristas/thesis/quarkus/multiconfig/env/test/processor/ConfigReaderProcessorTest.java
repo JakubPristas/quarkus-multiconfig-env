@@ -3,6 +3,7 @@ package org.jpristas.thesis.quarkus.multiconfig.env.test.processor;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.builditem.ConfigDataBuildItem;
+import org.jpristas.thesis.quarkus.multiconfig.env.deployment.config.GlobalConfig;
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.processor.ConfigReaderProcessor;
 import org.junit.jupiter.api.Test;
 
@@ -24,10 +25,11 @@ public class ConfigReaderProcessorTest {
         Path tempFile = Files.createTempFile("config", ".properties");
         Files.writeString(tempFile, mockConfig);
 
-        System.setProperty("quarkus.multiconfig.source-file-path", tempFile.toString());
+        GlobalConfig globalConfig = new GlobalConfig();
+        globalConfig.sourceFilePath = tempFile.toString();
 
         ConfigReaderProcessor processor = new ConfigReaderProcessor();
-        ConfigDataBuildItem configDataBuildItem = processor.readApplicationProperties();
+        ConfigDataBuildItem configDataBuildItem = processor.readApplicationProperties(globalConfig);
 
         assertNotNull(configDataBuildItem);
         assertEquals(mockConfig.trim(), configDataBuildItem.getFileContent().trim());

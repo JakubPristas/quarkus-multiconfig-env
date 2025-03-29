@@ -3,9 +3,9 @@ package org.jpristas.thesis.quarkus.multiconfig.env.deployment.processor;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.logging.Log;
 import jakarta.enterprise.context.ApplicationScoped;
-import org.eclipse.microprofile.config.Config;
-import org.eclipse.microprofile.config.ConfigProvider;
+
 import org.jpristas.thesis.quarkus.multiconfig.env.deployment.builditem.ConfigDataBuildItem;
+import org.jpristas.thesis.quarkus.multiconfig.env.deployment.config.GlobalConfig;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,10 +15,10 @@ import java.nio.file.Path;
 public class ConfigReaderProcessor {
 
     @BuildStep
-    public ConfigDataBuildItem readApplicationProperties() {
+    public ConfigDataBuildItem readApplicationProperties(GlobalConfig multiConfig) {
 
-        Config config = ConfigProvider.getConfig();
-        String configFilePath = config.getValue("quarkus.multiconfig.source-file-path", String.class);
+        String configFilePath = multiConfig.sourceFilePath;
+
         Path path = Path.of(configFilePath);
         String fileContent = "";
 
