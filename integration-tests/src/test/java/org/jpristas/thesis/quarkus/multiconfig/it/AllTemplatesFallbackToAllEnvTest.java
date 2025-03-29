@@ -16,19 +16,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 @TestProfile(Test4Profile.class)
 public class AllTemplatesFallbackToAllEnvTest {
-    Path cmFilePath = Paths.get("target/generated-sources/config-files/all/default.cm");
-    Path envFilePath = Paths.get("target/generated-sources/config-files/all/default.env");
-    Path propFilePath = Paths.get("target/generated-sources/config-files/all/default.properties");
+    Path cmFilePath = Paths.get("target/generated-sources/config-files/all/config.cm");
+    Path envFilePath = Paths.get("target/generated-sources/config-files/all/.env");
+    Path propFilePath = Paths.get("target/generated-sources/config-files/all/application.properties");
 
 
     @Test
     public void testGeneratedFilesWithDefaultNames() throws Exception {
         assertTrue(Files.exists(cmFilePath),
-                "The generated default.cm file should exist at " + cmFilePath.toAbsolutePath());
+                "The generated config.cm file should exist at " + cmFilePath.toAbsolutePath());
         assertTrue(Files.exists(envFilePath),
-                "The generated default.env file should exist at " + envFilePath.toAbsolutePath());
+                "The generated .env file should exist at " + envFilePath.toAbsolutePath());
         assertTrue(Files.exists(propFilePath),
-                "The generated default.properties file should exist at " + propFilePath.toAbsolutePath());
+                "The generated application.properties file should exist at " + propFilePath.toAbsolutePath());
     }
 
     @Test

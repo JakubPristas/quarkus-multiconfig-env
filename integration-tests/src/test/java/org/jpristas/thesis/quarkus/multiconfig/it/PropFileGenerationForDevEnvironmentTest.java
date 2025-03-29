@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @QuarkusTest
 @TestProfile(Test3Profile.class)
 public class PropFileGenerationForDevEnvironmentTest {
-    Path filePath = Paths.get("target/generated-sources/config-files/prop/application.properties");
+    Path filePath = Paths.get("target/generated-sources/config-files/prop/myapplication.properties");
 
     @Test
     public void testGeneratedPropFileForDevEnv() throws Exception {
         assertTrue(Files.exists(filePath),
-                "The generated application.properties file should exist at " + filePath.toAbsolutePath());
+                "The generated myapplication.properties file should exist at " + filePath.toAbsolutePath());
 
         String content = Files.readString(filePath, StandardCharsets.UTF_8);
 

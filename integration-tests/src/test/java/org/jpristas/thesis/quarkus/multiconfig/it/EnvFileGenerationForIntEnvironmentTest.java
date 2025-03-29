@@ -15,12 +15,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestProfile(Test1Profile.class)
 public class EnvFileGenerationForIntEnvironmentTest {
 
-    Path filePath = Paths.get("target/generated-sources/config-files/env/.env");
+    Path filePath = Paths.get("target/generated-sources/config-files/env/my.env");
 
     @Test
     public void testGeneratedEnvFileForIntEnv() throws Exception {
         assertTrue(Files.exists(filePath),
-                "The generated .env file should exist at " + filePath.toAbsolutePath());
+                "The generated my.env file should exist at " + filePath.toAbsolutePath());
 
         String content = Files.readString(filePath, StandardCharsets.UTF_8);
 

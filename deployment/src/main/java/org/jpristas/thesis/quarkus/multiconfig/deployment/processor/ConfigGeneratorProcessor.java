@@ -27,15 +27,13 @@ public class ConfigGeneratorProcessor {
             return;
         }
 
-        Log.info("version 200");
-
         String fileContent = configData.getFileContent();
         String effectiveTargetEnvironment = globalConfig.targetEnvironment.orElse("dev");
         String effectiveOutputPath = globalConfig.outputPath.orElse("");
-        String effectiveCmFileName = globalConfig.cmFileName.orElse("default.cm");
-        String effectiveEnvFileName = globalConfig.envFileName.orElse("default.env");
-        String effectivePropertiesFileName = globalConfig.propertiesFileName.orElse("default.properties");
-        boolean effectiveOutputDescription = globalConfig.outputDescription.orElse(false);
+        String effectiveCmFileName = globalConfig.cmFileName.orElse("config.cm");
+        String effectiveEnvFileName = globalConfig.envFileName.orElse(".env");
+        String effectivePropertiesFileName = globalConfig.propertiesFileName.orElse("application.properties");
+        boolean effectiveOutputDescription = globalConfig.outputDescription.orElse(true);
 
 
         if (globalConfig.selectedTemplates.orElse(Collections.emptyList()).contains("cm")) {
