@@ -17,7 +17,7 @@ public class ConfigReaderProcessor {
     @BuildStep
     public ConfigDataBuildItem readApplicationProperties(GlobalConfig globalConfig) {
 
-        String configFilePath = globalConfig.sourceFilePath;
+        String configFilePath = globalConfig.sourceFilePath();
 
         Path path = Path.of(configFilePath);
         String fileContent = "";

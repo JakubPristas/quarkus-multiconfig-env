@@ -1,61 +1,62 @@
 package org.jpristas.thesis.quarkus.multiconfig.deployment.config;
 
-import io.quarkus.runtime.annotations.ConfigItem;
 import io.quarkus.runtime.annotations.ConfigPhase;
 import io.quarkus.runtime.annotations.ConfigRoot;
+import io.smallrye.config.ConfigMapping;
+import io.smallrye.config.WithDefault;
 
 import java.util.List;
 import java.util.Optional;
 
-@ConfigRoot(name = "multiconfig", phase = ConfigPhase.BUILD_TIME)
-public class GlobalConfig {
+@ConfigMapping(prefix = "quarkus.multiconfig")
+@ConfigRoot(phase = ConfigPhase.BUILD_TIME)
+public interface GlobalConfig {
 
     /**
      * Target environment for generated files.
      */
-    @ConfigItem(defaultValue = "dev")
-    public Optional<String> targetEnvironment;
+    @WithDefault("dev")
+    Optional<String> targetEnvironment();
 
     /**
      * Selected templates for generated files (.env, .cm, .prop).
      */
-    @ConfigItem
-    public Optional<List<String>> selectedTemplates;
+    @WithDefault("")
+    Optional<List<String>> selectedTemplates();
 
     /**
      * Output path for generated files in target folder.
      */
-    @ConfigItem(defaultValue = "")
-    public Optional<String> outputPath;
+    @WithDefault("")
+    Optional<String> outputPath();
 
     /**
      * Name for .cm generated file.
      */
-    @ConfigItem(defaultValue = "config.cm")
-    public Optional<String> cmFileName;
+    @WithDefault("config.cm")
+    Optional<String> cmFileName();
 
     /**
      * Name for .env generated file.
      */
-    @ConfigItem(defaultValue = ".env")
-    public Optional<String> envFileName;
+    @WithDefault(".env")
+    Optional<String> envFileName();
 
     /**
      * Name for .prop generated file.
      */
-    @ConfigItem(defaultValue = "application.properties")
-    public Optional<String> propertiesFileName;
+    @WithDefault("application.properties")
+    Optional<String> propertiesFileName();
 
     /**
      * Visibility description for each value in generated files.
      */
-    @ConfigItem(defaultValue = "true")
-    public Optional<Boolean> outputDescription;
+    @WithDefault("true")
+    Optional<Boolean> outputDescription();
 
     /**
      * Input source file path.
      */
-    @ConfigItem(defaultValue = "src/main/resources/application.properties")
-    public String sourceFilePath;
-
+    @WithDefault("src/main/resources/application.properties")
+    String sourceFilePath();
 }

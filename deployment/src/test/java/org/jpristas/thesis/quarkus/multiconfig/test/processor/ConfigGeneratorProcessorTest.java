@@ -43,14 +43,14 @@ class ConfigGeneratorProcessorTest {
                 Optional.empty()
         );
 
-        globalConfig = new GlobalConfig();
-        globalConfig.targetEnvironment = Optional.empty();
-        globalConfig.selectedTemplates = Optional.empty();
-        globalConfig.outputPath = Optional.empty();
-        globalConfig.cmFileName = Optional.empty();
-        globalConfig.envFileName = Optional.empty();
-        globalConfig.propertiesFileName = Optional.empty();
-        globalConfig.outputDescription = Optional.empty();
+        globalConfig = mock(GlobalConfig.class);
+        when(globalConfig.targetEnvironment()).thenReturn(Optional.of("dev"));
+        when(globalConfig.selectedTemplates()).thenReturn(Optional.empty());
+        when(globalConfig.outputPath()).thenReturn(Optional.empty());
+        when(globalConfig.cmFileName()).thenReturn(Optional.of("config.cm"));
+        when(globalConfig.envFileName()).thenReturn(Optional.of(".env"));
+        when(globalConfig.propertiesFileName()).thenReturn(Optional.of("application.properties"));
+        when(globalConfig.outputDescription()).thenReturn(Optional.of(true));
     }
 
     @Test
@@ -74,12 +74,12 @@ class ConfigGeneratorProcessorTest {
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 
-        globalConfig.targetEnvironment = Optional.of("dev");
-        globalConfig.selectedTemplates = Optional.of(List.of("cm", "env", "prop"));
-        globalConfig.cmFileName = Optional.of("config.cm");
-        globalConfig.envFileName = Optional.of("my.env");
-        globalConfig.propertiesFileName = Optional.of("application.properties");
-        globalConfig.outputDescription = Optional.of(true);
+        when(globalConfig.targetEnvironment()).thenReturn(Optional.of("dev"));
+        when(globalConfig.selectedTemplates()).thenReturn(Optional.of(List.of("cm", "env", "prop")));
+        when(globalConfig.cmFileName()).thenReturn(Optional.of("config.cm"));
+        when(globalConfig.envFileName()).thenReturn(Optional.of("my.env"));
+        when(globalConfig.propertiesFileName()).thenReturn(Optional.of("application.properties"));
+        when(globalConfig.outputDescription()).thenReturn(Optional.of(true));
 
         processor.generateFiles(configData, outputTarget, resourceProducer, globalConfig);
 
@@ -94,8 +94,8 @@ class ConfigGeneratorProcessorTest {
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 
-        globalConfig.targetEnvironment = Optional.of("stage");
-        globalConfig.selectedTemplates = Optional.of(List.of("cm", "prop"));
+        when(globalConfig.targetEnvironment()).thenReturn(Optional.of("stage"));
+        when(globalConfig.selectedTemplates()).thenReturn(Optional.of(List.of("cm", "prop")));
 
         processor.generateFiles(configData, outputTarget, resourceProducer, globalConfig);
 
@@ -110,8 +110,8 @@ class ConfigGeneratorProcessorTest {
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 
-        globalConfig.selectedTemplates = Optional.of(List.of("cm"));
-        globalConfig.cmFileName = Optional.of("myconfig.cm");
+        when(globalConfig.selectedTemplates()).thenReturn(Optional.of(List.of("cm")));
+        when(globalConfig.cmFileName()).thenReturn(Optional.of("myconfig.cm"));
 
         processor.generateFiles(configData, outputTarget, resourceProducer, globalConfig);
 

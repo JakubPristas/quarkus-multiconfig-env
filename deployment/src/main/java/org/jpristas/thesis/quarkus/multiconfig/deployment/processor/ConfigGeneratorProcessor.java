@@ -6,8 +6,8 @@ import io.quarkus.deployment.builditem.GeneratedResourceBuildItem;
 import io.quarkus.deployment.pkg.builditem.OutputTargetBuildItem;
 import io.quarkus.logging.Log;
 import org.jpristas.thesis.quarkus.multiconfig.deployment.config.GlobalConfig;
-import org.jpristas.thesis.quarkus.multiconfig.deployment.generator.CmFileGenerator;
 import org.jpristas.thesis.quarkus.multiconfig.deployment.builditem.ConfigDataBuildItem;
+import org.jpristas.thesis.quarkus.multiconfig.deployment.generator.CmFileGenerator;
 import org.jpristas.thesis.quarkus.multiconfig.deployment.generator.EnvFileGenerator;
 import org.jpristas.thesis.quarkus.multiconfig.deployment.generator.PropertiesFileGenerator;
 
@@ -28,15 +28,15 @@ public class ConfigGeneratorProcessor {
         }
 
         String fileContent = configData.getFileContent();
-        String effectiveTargetEnvironment = globalConfig.targetEnvironment.orElse("dev");
-        String effectiveOutputPath = globalConfig.outputPath.orElse("");
-        String effectiveCmFileName = globalConfig.cmFileName.orElse("config.cm");
-        String effectiveEnvFileName = globalConfig.envFileName.orElse(".env");
-        String effectivePropertiesFileName = globalConfig.propertiesFileName.orElse("application.properties");
-        boolean effectiveOutputDescription = globalConfig.outputDescription.orElse(true);
+        String effectiveTargetEnvironment = globalConfig.targetEnvironment().orElse("dev");
+        String effectiveOutputPath = globalConfig.outputPath().orElse("");
+        String effectiveCmFileName = globalConfig.cmFileName().orElse("config.cm");
+        String effectiveEnvFileName = globalConfig.envFileName().orElse(".env");
+        String effectivePropertiesFileName = globalConfig.propertiesFileName().orElse("application.properties");
+        boolean effectiveOutputDescription = globalConfig.outputDescription().orElse(true);
 
 
-        if (globalConfig.selectedTemplates.orElse(Collections.emptyList()).contains("cm")) {
+        if (globalConfig.selectedTemplates().orElse(Collections.emptyList()).contains("cm")) {
             new CmFileGenerator().generateFile(
                     fileContent,
                     effectiveTargetEnvironment,
@@ -47,7 +47,7 @@ public class ConfigGeneratorProcessor {
                     resourceProducer
             );
         }
-        if (globalConfig.selectedTemplates.orElse(Collections.emptyList()).contains("env")) {
+        if (globalConfig.selectedTemplates().orElse(Collections.emptyList()).contains("env")) {
             new EnvFileGenerator().generateFile(
                     fileContent,
                     effectiveTargetEnvironment,
@@ -58,7 +58,7 @@ public class ConfigGeneratorProcessor {
                     resourceProducer
             );
         }
-        if (globalConfig.selectedTemplates.orElse(Collections.emptyList()).contains("prop")) {
+        if (globalConfig.selectedTemplates().orElse(Collections.emptyList()).contains("prop")) {
             new PropertiesFileGenerator().generateFile(
                     fileContent,
                     effectiveTargetEnvironment,
