@@ -21,17 +21,12 @@ public class PropDoc implements Iterable<Property> {
 
     private Map<String, Property> properties = new LinkedHashMap<>();
 
-    public PropDoc() {
-        //empty constructor for manually building a prop-doc model
-    }
+    public PropDoc() {}
 
     public PropDoc(InputStream in) throws IOException {
-//        byte[] fileContent = IOUtils.toByteArray(in);
         byte[] fileContent = in.readAllBytes();
-        //first seed all the java properties and values using the java properties parser
         seedProperties(new ByteArrayInputStream(fileContent));
 
-        //collect the meta-data documentation for each property
         parseMetadata(new ByteArrayInputStream(fileContent));
     }
 
@@ -41,7 +36,6 @@ public class PropDoc implements Iterable<Property> {
 
     private void parseMetadata(InputStream in) throws IOException {
         TokenEnumeration tokens = JavaPropertyFileTokenizer.tokenize(in);
-        //poor man's state machine..
         while (tokens.hasMoreElements()) {
             Token token = tokens.nextElement();
 
@@ -61,30 +55,25 @@ public class PropDoc implements Iterable<Property> {
                         if (!blockDone) {
                             blockDone = true;
                             if (isKeyAttributSet) {
-                                // at the end of the block, when @key is set, ignore the PropertyDefinitionToken if it exists
                                 break;
                             }
                         } else {
-                            //we've already finished this comment block and hit another block. exit with what we have
                             break;
                         }
                     } else if (token instanceof CommentAttributeToken) {
                         if (!blockDone) {
                             CommentAttributeToken t = (CommentAttributeToken) token;
 
-                            //the default attribute content doesn't get added until the end, since it could still consume more content.
                             if (!Property.ATTR_DEFAULT_KEY.equals(attributeName)) {
                                 attributeMap.put(attributeName, attributeContent.toString().trim());
                             }
 
-                            //set the new attribute name
                             attributeName = t.getName();
 
                             if (ATTR_KEY.equals(attributeName)) {
                                 isKeyAttributSet = true;
                             }
 
-                            //if the new attribute is the default attribute, append the content to the default buffer
                             if (Property.ATTR_DEFAULT_KEY.equals(attributeName)) {
                                 defaultContent.append(" ");
                                 defaultContent.append(t.getContent());
@@ -94,7 +83,6 @@ public class PropDoc implements Iterable<Property> {
                                 attributeContent.append(t.getContent());
                             }
 
-                            //if the new attribute is the "property" attribute, consume it immediately and revert to the default buffer
                             if (Property.ATTR_PROPERTY_KEY.equals(attributeName)) {
                                 propertyName = attributeContent.toString().trim();
                                 attributeName = Property.ATTR_DEFAULT_KEY;
@@ -122,26 +110,20 @@ public class PropDoc implements Iterable<Property> {
                     }
                 }
 
-                //finally apply the default buffer, as well as the last attribute content
                 attributeMap.put(Property.ATTR_DEFAULT_KEY, defaultContent.toString().trim());
                 if (!Property.ATTR_DEFAULT_KEY.equals(attributeName)) {
                     attributeMap.put(attributeName, attributeContent.toString().trim());
                 }
 
-                // set the propertyName with the value from the @key attribute
                 if (isKeyAttributSet) {
                     propertyName = attributeMap.get(ATTR_KEY);
                 }
 
-                //apply this comment block to the property metadata
                 if (propertyName != null) {
                     String value = null;
                     if (properties.containsKey(propertyName)) {
                         value = properties.get(propertyName).getValue();
                     } else {
-                        //in this situation, there was a documented property in the property file that doesn't
-                        //actually have a property-value declaration. we'll just store the property with a null
-                        //value.
                     }
 
                     properties.put(propertyName, new Property(propertyName, value, attributeMap));

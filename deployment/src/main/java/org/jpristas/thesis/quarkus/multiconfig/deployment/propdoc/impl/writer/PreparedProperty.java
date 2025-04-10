@@ -1,8 +1,6 @@
 package org.jpristas.thesis.quarkus.multiconfig.deployment.propdoc.impl.writer;
 
-//import org.apache.commons.lang.StringUtils;
-
-public class ProdProperty {
+public class PreparedProperty {
     private String originalName;
     private String name;
     private String originalValue;
@@ -10,20 +8,19 @@ public class ProdProperty {
     private String description;
     private boolean required;
 
-    public ProdProperty(String originalName, String originalValue, String prodValue,
-                        String description, boolean required) {
+    public PreparedProperty(String originalName, String originalValue, String prodValue,
+                            String description, boolean required) {
         this.originalName = originalName;
         this.name = originalName.replaceAll("\\W", "_").toUpperCase();
         this.originalValue = originalValue;
         this.prodValue = prodValue;
-//        this.description = StringUtils.isBlank(description) ? "" : description;
         this.description = (description == null || description.trim().isEmpty()) ? "" : description;
         this.required = required;
     }
 
     @Override
     public String toString() {
-        return "ProdProperty [originalName=" + originalName + ", name=" + name + ", originalValue="
+        return "PreparedProperty [originalName=" + originalName + ", name=" + name + ", originalValue="
                 + originalValue + ", prodValue=" + prodValue + ", description=" + description + "]";
     }
 

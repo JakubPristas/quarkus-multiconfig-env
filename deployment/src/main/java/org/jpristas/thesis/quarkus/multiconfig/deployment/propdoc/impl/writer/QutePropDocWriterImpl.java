@@ -29,13 +29,10 @@ public class QutePropDocWriterImpl implements PropDocWriter {
     public void write(PropDoc propDoc, OutputStream out) throws IOException {
         Map<String, Object> context = buildContext(propDoc);
 
-        //Log.info("buildContext: " + context);
         Engine engine = Engine.builder()
                 .addDefaults()
                 .build();
         Template template;
-        //Log.info("templateFile: " + templateFile);
-        //try (InputStream is = getClass().getResourceAsStream("/templates/testing-template.qute")) {
         try (InputStream is = getClass().getResourceAsStream(templateFile)) {
 
                 if (is == null) {
@@ -46,7 +43,7 @@ public class QutePropDocWriterImpl implements PropDocWriter {
         }
 
         List<Map<String, Object>> mappedEnvVars = new ArrayList<>();
-        for (ProdProperty property : (List<ProdProperty>) context.get("envVars")) {
+        for (PreparedProperty property : (List<PreparedProperty>) context.get("envVars")) {
             Map<String, Object> propMap = new HashMap<>();
             propMap.put("originalName", property.getOriginalName());
             propMap.put("name", property.getName());
@@ -71,10 +68,9 @@ public class QutePropDocWriterImpl implements PropDocWriter {
 
     private Map<String, Object> buildContext(PropDoc propDoc) {
         Map<String, Object> context = new LinkedHashMap<>();
-        // PropDoc.print(propDoc);
         Iterable<String> allAttributes = getAllAttributes(propDoc);
 
-        List<ProdProperty> envEntries = propDoc.getProperties().entrySet().stream().map(Map.Entry::getValue)
+        List<PreparedProperty> envEntries = propDoc.getProperties().entrySet().stream().map(Map.Entry::getValue)
                 .filter(this::filterProperty).map(this::mapToProdProperty).toList();
 
         context.put("propDoc", propDoc);
@@ -87,7 +83,7 @@ public class QutePropDocWriterImpl implements PropDocWriter {
         if (property.getMetadataValue("description") == null) {
             return false;
         }
-        String logMessage = property.getKey(); // + " = " + property.getValue();
+        String logMessage = property.getKey();
         boolean required = true;
         if (property.getMetadataKeys().contains(REQUIRED_KEY)) {
             required = Boolean.parseBoolean(property.getMetadataValue(REQUIRED_KEY));
@@ -95,22 +91,18 @@ public class QutePropDocWriterImpl implements PropDocWriter {
 
         if (property.getMetadataValue(targetEnvironment) == null
                 && property.getMetadataValue(ALL_ENVIRONMENTS) == null) {
-            //Log.info("[SKIP - '@{}' value missing] {}", targetEnvironment, logMessage);
             return false;
         }
 
         if (property.getMetadataValue(targetEnvironment) != null
                 && property.getMetadataValue(targetEnvironment).isBlank()) {
-            //Log.info("[SKIP - '@{} and @{}' targets ignored] {}", targetEnvironment, ALL_ENVIRONMENTS,
-            //        logMessage);
             return false;
         }
 
-        //Log.info("[ADDED] {}{}", logMessage, (required ? " (required)" : ""));
         return true;
     }
 
-    private ProdProperty mapToProdProperty(Property property) {
+    private PreparedProperty mapToProdProperty(Property property) {
         String value = property.getMetadataValue(targetEnvironment);
         String description = null;
         if (outputDescription) {
@@ -138,10 +130,8 @@ public class QutePropDocWriterImpl implements PropDocWriter {
         if (property.getMetadataKeys().contains(SUBSTITUTE_KEY_KEY)) {
             propertyKey = property.getMetadataValue(SUBSTITUTE_KEY_KEY);
         }
-        // ProdProperty co = new ProdProperty(property.getKey(), property.getValue(), value, description, required);
-        // System.out.println("[WRITE] " + co.getName() + "=" + co.getValue() + "\n");
-        // return co;
-        return new ProdProperty(propertyKey, property.getValue(), value, description, required);
+
+        return new PreparedProperty(propertyKey, property.getValue(), value, description, required);
     }
 
     private Iterable<String> getAllAttributes(PropDoc propDoc) {
