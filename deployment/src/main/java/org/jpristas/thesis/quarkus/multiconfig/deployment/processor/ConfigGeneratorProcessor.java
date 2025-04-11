@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class ConfigGeneratorProcessor {
+
+    public static final String CONFIGURATION_MAPPING_FILE_TYPE = "cm";
+    public static final String ENVIRONMENT_VARIABLE_FILE_TYPE = "env";
+    public static final String PROPERTIES_FILE_TYPE = "prop";
     @BuildStep
     public void generateFiles(
             ConfigDataBuildItem configData,
@@ -36,7 +40,7 @@ public class ConfigGeneratorProcessor {
         boolean effectiveOutputDescription = globalConfig.outputDescription().orElse(true);
 
 
-        if (globalConfig.selectedTemplates().orElse(Collections.emptyList()).contains("cm")) {
+        if (globalConfig.selectedTemplates().orElse(Collections.emptyList()).contains(CONFIGURATION_MAPPING_FILE_TYPE)) {
             new CmFileGenerator().generateFile(
                     fileContent,
                     effectiveTargetEnvironment,
@@ -47,7 +51,7 @@ public class ConfigGeneratorProcessor {
                     resourceProducer
             );
         }
-        if (globalConfig.selectedTemplates().orElse(Collections.emptyList()).contains("env")) {
+        if (globalConfig.selectedTemplates().orElse(Collections.emptyList()).contains(ENVIRONMENT_VARIABLE_FILE_TYPE)) {
             new EnvFileGenerator().generateFile(
                     fileContent,
                     effectiveTargetEnvironment,
@@ -58,7 +62,7 @@ public class ConfigGeneratorProcessor {
                     resourceProducer
             );
         }
-        if (globalConfig.selectedTemplates().orElse(Collections.emptyList()).contains("prop")) {
+        if (globalConfig.selectedTemplates().orElse(Collections.emptyList()).contains(PROPERTIES_FILE_TYPE)) {
             new PropertiesFileGenerator().generateFile(
                     fileContent,
                     effectiveTargetEnvironment,
