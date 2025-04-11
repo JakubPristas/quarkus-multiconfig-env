@@ -23,7 +23,7 @@ public class ConfigReaderProcessorTest {
         String mockConfig = """
             quarkus.multiconfig.selected-templates=cm,env
             quarkus.multiconfig.target-environment=prod
-            quarkus.multiconfig.cm-file-name=config.cm
+            quarkus.multiconfig.cm-file-name=config.yaml
             quarkus.multiconfig.env-file-name=config.env
             """;
 

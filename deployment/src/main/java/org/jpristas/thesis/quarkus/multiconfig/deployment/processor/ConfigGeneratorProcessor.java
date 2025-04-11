@@ -30,7 +30,7 @@ public class ConfigGeneratorProcessor {
         String fileContent = configData.getFileContent();
         String effectiveTargetEnvironment = globalConfig.targetEnvironment().orElse("dev");
         String effectiveOutputPath = globalConfig.outputPath().orElse("");
-        String effectiveCmFileName = globalConfig.cmFileName().orElse("config.cm");
+        String effectiveCmFileName = globalConfig.cmFileName().orElse("ConfigMap.yaml");
         String effectiveEnvFileName = globalConfig.envFileName().orElse(".env");
         String effectivePropertiesFileName = globalConfig.propertiesFileName().orElse("application.properties");
         boolean effectiveOutputDescription = globalConfig.outputDescription().orElse(true);

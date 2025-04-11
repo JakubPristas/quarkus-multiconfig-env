@@ -15,17 +15,17 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @TestProfile(Test2Profile.class)
 public class CmFileGenerationForTestEnvironmentTest {
 
-    Path filePath = Paths.get("target/generated-sources/config-files/cm/myconfig.cm");
+    Path filePath = Paths.get("target/generated-sources/config-files/cm/myconfig.yaml");
 
     @Test
     public void testGeneratedCmFileForTestEnv() throws Exception {
         assertTrue(Files.exists(filePath),
-                "The generated myconfig.cm file should exist at " + filePath.toAbsolutePath());
+                "The generated myconfig.yaml file should exist at " + filePath.toAbsolutePath());
 
         String content = Files.readString(filePath, StandardCharsets.UTF_8);
 
-        assertTrue(content.contains("MY_PROPERTY: '1'"),
-                "The generated file should contain MY_PROPERTY with value 1 for the 'test' target environment");
+        assertTrue(content.contains("my.property: 1"),
+                "The generated file should contain my.property with value 1 for the 'test' target environment");
 
     }
 

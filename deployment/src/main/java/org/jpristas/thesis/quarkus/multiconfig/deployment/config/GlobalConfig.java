@@ -19,7 +19,7 @@ public interface GlobalConfig {
     Optional<String> targetEnvironment();
 
     /**
-     * Selected templates for generated files (.env, .cm, .prop).
+     * Selected templates for generated files (.env, cm, .prop).
      */
     @WithDefault("")
     Optional<List<String>> selectedTemplates();
@@ -31,9 +31,9 @@ public interface GlobalConfig {
     Optional<String> outputPath();
 
     /**
-     * Name for .cm generated file.
+     * Name for cm generated file.
      */
-    @WithDefault("config.cm")
+    @WithDefault("ConfigMap.yaml")
     Optional<String> cmFileName();
 
     /**

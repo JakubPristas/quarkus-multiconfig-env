@@ -47,7 +47,7 @@ class ConfigGeneratorProcessorTest {
         when(globalConfig.targetEnvironment()).thenReturn(Optional.of("dev"));
         when(globalConfig.selectedTemplates()).thenReturn(Optional.empty());
         when(globalConfig.outputPath()).thenReturn(Optional.empty());
-        when(globalConfig.cmFileName()).thenReturn(Optional.of("config.cm"));
+        when(globalConfig.cmFileName()).thenReturn(Optional.of("ConfigMap.yaml"));
         when(globalConfig.envFileName()).thenReturn(Optional.of(".env"));
         when(globalConfig.propertiesFileName()).thenReturn(Optional.of("application.properties"));
         when(globalConfig.outputDescription()).thenReturn(Optional.of(true));
@@ -67,7 +67,7 @@ class ConfigGeneratorProcessorTest {
         String fileContent = """
                 quarkus.multiconfig.selected-templates=cm,env,prop
                 quarkus.multiconfig.target-environment=dev
-                quarkus.multiconfig.cm-file-name=config.cm
+                quarkus.multiconfig.cm-file-name=config.yaml
                 quarkus.multiconfig.env-file-name=my.env
                 quarkus.multiconfig.properties-file-name=application.properties
                 quarkus.multiconfig.output-description=true
@@ -76,7 +76,7 @@ class ConfigGeneratorProcessorTest {
 
         when(globalConfig.targetEnvironment()).thenReturn(Optional.of("dev"));
         when(globalConfig.selectedTemplates()).thenReturn(Optional.of(List.of("cm", "env", "prop")));
-        when(globalConfig.cmFileName()).thenReturn(Optional.of("config.cm"));
+        when(globalConfig.cmFileName()).thenReturn(Optional.of("config.yaml"));
         when(globalConfig.envFileName()).thenReturn(Optional.of("my.env"));
         when(globalConfig.propertiesFileName()).thenReturn(Optional.of("application.properties"));
         when(globalConfig.outputDescription()).thenReturn(Optional.of(true));
@@ -106,12 +106,12 @@ class ConfigGeneratorProcessorTest {
     void testVerifyGeneratedResourceNames() throws IOException {
         String fileContent = """
                 quarkus.multiconfig.selected-templates=cm
-                quarkus.multiconfig.cm-file-name=myconfig.cm
+                quarkus.multiconfig.cm-file-name=myconfig.yaml
                 """;
         ConfigDataBuildItem configData = new ConfigDataBuildItem(fileContent);
 
         when(globalConfig.selectedTemplates()).thenReturn(Optional.of(List.of("cm")));
-        when(globalConfig.cmFileName()).thenReturn(Optional.of("myconfig.cm"));
+        when(globalConfig.cmFileName()).thenReturn(Optional.of("myconfig.yaml"));
 
         processor.generateFiles(configData, outputTarget, resourceProducer, globalConfig);
 
@@ -120,6 +120,6 @@ class ConfigGeneratorProcessorTest {
         verify(resourceProducer, times(1)).produce(captor.capture());
 
         GeneratedResourceBuildItem producedResource = captor.getValue();
-        assertEquals("myconfig.cm", producedResource.getName());
+        assertEquals("myconfig.yaml", producedResource.getName());
     }
 }
