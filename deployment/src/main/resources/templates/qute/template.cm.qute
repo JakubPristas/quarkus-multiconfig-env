@@ -5,7 +5,7 @@ metadata:
 data:
 {#for env in envVars}
 {#if env.description??}
-#--- {env.description} ---#
+  #--- {env.description} ---#
 {/if}
 {#if env.required}
   {env.originalName}: {env.prodValue}

@@ -35,28 +35,16 @@ public class QutePropDocWriterImpl implements PropDocWriter {
         Template template;
         try (InputStream is = getClass().getResourceAsStream(templateFile)) {
 
-                if (is == null) {
+            if (is == null) {
                 throw new IOException("Template file not found: " + templateFile);
             }
             String templateContent = new String(is.readAllBytes(), StandardCharsets.UTF_8);
             template = engine.parse(templateContent);
         }
 
-        List<Map<String, Object>> mappedEnvVars = new ArrayList<>();
-        for (PreparedProperty property : (List<PreparedProperty>) context.get("envVars")) {
-            Map<String, Object> propMap = new HashMap<>();
-            propMap.put("originalName", property.getOriginalName());
-            propMap.put("name", property.getName());
-            propMap.put("originalValue", property.getOriginalValue());
-            propMap.put("prodValue", property.getProdValue());
-            propMap.put("description", property.getDescription());
-            propMap.put("required", property.isRequired());
-            mappedEnvVars.add(propMap);
-        }
-
         String renderedContent = template
                 .data("propDoc", context.get("propDoc"))
-                .data("envVars", mappedEnvVars)
+                .data("envVars", context.get("envVars"))
                 .data("allAttributes", context.get("allAttributes"))
                 .render();
 
@@ -73,8 +61,20 @@ public class QutePropDocWriterImpl implements PropDocWriter {
         List<PreparedProperty> envEntries = propDoc.getProperties().entrySet().stream().map(Map.Entry::getValue)
                 .filter(this::filterProperty).map(this::mapToProdProperty).toList();
 
+        List<Map<String, Object>> mappedEnvVars = new ArrayList<>();
+        for (PreparedProperty property : envEntries) {
+            Map<String, Object> propMap = new HashMap<>();
+            propMap.put("originalName", property.getOriginalName());
+            propMap.put("name", property.getName());
+            propMap.put("originalValue", property.getOriginalValue());
+            propMap.put("prodValue", property.getProdValue());
+            propMap.put("description", property.getDescription());
+            propMap.put("required", property.isRequired());
+            mappedEnvVars.add(propMap);
+        }
+
         context.put("propDoc", propDoc);
-        context.put("envVars", envEntries);
+        context.put("envVars", mappedEnvVars);
         context.put("allAttributes", allAttributes);
         return context;
     }
@@ -82,11 +82,6 @@ public class QutePropDocWriterImpl implements PropDocWriter {
     private boolean filterProperty(Property property) {
         if (property.getMetadataValue("description") == null) {
             return false;
-        }
-        String logMessage = property.getKey();
-        boolean required = true;
-        if (property.getMetadataKeys().contains(REQUIRED_KEY)) {
-            required = Boolean.parseBoolean(property.getMetadataValue(REQUIRED_KEY));
         }
 
         if (property.getMetadataValue(targetEnvironment) == null
@@ -107,14 +102,6 @@ public class QutePropDocWriterImpl implements PropDocWriter {
         String description = null;
         if (outputDescription) {
             description = property.getMetadataValue("description");
-        }
-
-        int mainTargetDelimiterPos = targetEnvironment.indexOf("+");
-        if (mainTargetDelimiterPos > 0) {
-            String mainTargetEnvironment = targetEnvironment.substring(0, mainTargetDelimiterPos);
-            if (value == null && !targetEnvironment.equals(mainTargetEnvironment)) {
-                value = property.getMetadataValue(mainTargetEnvironment);
-            }
         }
 
         if (value == null) {

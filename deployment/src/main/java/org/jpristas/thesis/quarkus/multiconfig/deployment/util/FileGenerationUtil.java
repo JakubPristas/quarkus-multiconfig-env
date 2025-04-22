@@ -35,13 +35,11 @@ public class FileGenerationUtil {
             Log.error("Failed to create directories for " + outputFile.getAbsolutePath());
             return;
         }
-
         try (OutputStream out = new FileOutputStream(outputFile)) {
             PropDoc propDoc = new PropDoc(new ByteArrayInputStream(fileContent.getBytes(StandardCharsets.UTF_8)));
-            //propDoc.print(propDoc);
             PropDocWriter propDocWriter = new QutePropDocWriterImpl(templatePath, targetEnvironment, outputDescription);
             propDocWriter.write(propDoc, out);
-            Log.info("File generated and processed with PropDoc successfully: " + outputFile.getAbsolutePath());
+            Log.info("File generated successfully: " + outputFile.getAbsolutePath());
         } catch (Exception e) {
             Log.error("Failed to generate file for template: " + templatePath, e);
         }

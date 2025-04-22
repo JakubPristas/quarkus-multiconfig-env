@@ -26,7 +26,7 @@ public class EnvFileGenerationForIntEnvironmentTest {
 
         assertTrue(content.contains("#--- Description for my.property ---#"),
                 "The generated file should contain the property description");
-        assertTrue(content.contains("MY_PROPERTY=5"),
+        assertTrue(content.contains("# MY_PROPERTY=5"),
                 "The generated file should contain MY_PROPERTY with value 5 for the 'int' target environment");
 
     }
