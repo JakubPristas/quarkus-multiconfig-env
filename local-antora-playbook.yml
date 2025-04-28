@@ -1,0 +1,21 @@
+site:
+  title: Quarkus Multiconfig Docs
+  start_page: quarkus-multiconfig::index.adoc
+  url: http://localhost:8080
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/master/raw/build/ui-bundle.zip?job=bundle-stable
+
+content:
+  sources:
+    - url: .
+      branches: HEAD
+      start_path: docs
+
+asciidoc:
+  attributes:
+    experimental: true
+
+output:
+  dir: ./build/site
