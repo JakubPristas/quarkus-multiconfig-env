@@ -1,5 +1,0 @@
-name: quarkus-multiconfig
-title: Quarkus Multiconfig
-version: dev
-nav:
-  - modules/ROOT/nav.adoc
