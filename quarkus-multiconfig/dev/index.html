@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quarkus Multiconfig Extension :: Quarkus Multiconfig Docs</title>
+    <link rel="canonical" href="http://localhost:8080/quarkus-multiconfig/dev/index.html">
+    <meta name="generator" content="Antora 3.1.10">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="http://localhost:8080">Quarkus Multiconfig Docs</a>
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="quarkus-multiconfig" data-version="dev">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="index.html">Quarkus Multiconfig</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Overview</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Quarkus Multiconfig</span>
+    <span class="version">dev</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <div class="title"><a href="index.html">Quarkus Multiconfig</a></div>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">dev</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Quarkus Multiconfig</a></li>
+    <li><a href="index.html">Overview</a></li>
+  </ul>
+</nav>
+<div class="edit-this-page"><a href="file:///C:/Diploma_thesis/Quarkus/project_v4/quarkus-multiconfig/docs/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Quarkus Multiconfig Extension</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Contents</div>
+<ul class="sectlevel1">
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#input-file-format">Input File Format</a>
+<ul class="sectlevel2">
+<li><a href="#example-input">Example Input</a></li>
+</ul>
+</li>
+<li><a href="#generated-files">Generated Output Files</a>
+<ul class="sectlevel2">
+<li><a href="#_example_configmap_yaml">Example <code>ConfigMap.yaml</code></a></li>
+<li><a href="#_example_env">Example <code>.env</code></a></li>
+<li><a href="#_example_application_properties">Example <code>application.properties</code></a></li>
+</ul>
+</li>
+<li><a href="#notes">Additional Notes</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Welcome to the documentation for the Quarkus Multiconfig extension!</p>
+</div>
+<div class="paragraph">
+<p>The Quarkus MultiConfig extension is designed for automated processing and generation of configuration files based on a
+main input file (application.properties). It enables developers to easily create environment-specific configuration
+files (e.g., for dev, test, prod) in formats such as .env, .properties, and ConfigMap.yaml.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="getting-started"><a class="anchor" href="#getting-started"></a>Getting Started</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Add the following dependency to your project&#8217;s <code>pom.xml</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml"> &lt;dependency&gt;
+   &lt;groupId&gt;org.jpristas.thesis&lt;/groupId&gt;
+   &lt;artifactId&gt;quarkus-multiconfig-env&lt;/artifactId&gt;
+   &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+ &lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You also need to configure the extension using properties in your <code>application.properties</code> file (explained below).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="features"><a class="anchor" href="#features"></a>Features</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Quarkus MultiConfig extension allows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Automatic generation of environment-specific configuration files.</p>
+</li>
+<li>
+<p>Support for multiple output formats: <code>.env</code>, <code>application.properties</code>, and <code>ConfigMap.yaml</code>.</p>
+</li>
+<li>
+<p>Ability to define values per environment (<code>dev</code>, <code>prod</code>, <code>test</code>, etc.).</p>
+</li>
+<li>
+<p>Support for default fallback values if environment-specific value is missing.</p>
+</li>
+<li>
+<p>Key renaming and marking configuration variables as required.</p>
+</li>
+<li>
+<p>Automatic inclusion of variable descriptions.</p>
+</li>
+<li>
+<p>Customizable output file names and output paths.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuration"><a class="anchor" href="#configuration"></a>Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The extension uses the following properties to control its behavior:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.multiconfig.target-environment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Defines the target environment (e.g., <code>dev</code>, <code>prod</code>, <code>test</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.multiconfig.selected-templates</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Comma-separated list of file formats to generate (<code>env</code>, <code>cm</code>, <code>prop</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.multiconfig.cm-file-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the generated <code>.yaml</code> file for Kubernetes ConfigMap.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.multiconfig.env-file-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the generated <code>.env</code> file.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.multiconfig.properties-file-name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name of the generated <code>.properties</code> file.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.multiconfig.output-description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether to include variable descriptions in the output files (<code>true</code> or <code>false</code>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>quarkus.multiconfig.output-path</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path where the generated files will be placed.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="input-file-format"><a class="anchor" href="#input-file-format"></a>Input File Format</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The input file is based on a slightly extended <code>application.properties</code> syntax.
+You can define environment-specific values, fallback defaults, renamed keys, and required variables using special annotations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>##</code> - Start and end of a configuration block.</p>
+</li>
+<li>
+<p><code>#</code> - Description for a configuration key.</p>
+</li>
+<li>
+<p><code># @&lt;environment&gt; &lt;value&gt;</code> - Value for a specific environment (e.g., <code># @prod jdbc:postgresql://prod-db:5432/db</code>).</p>
+</li>
+<li>
+<p><code># @all &lt;value&gt;</code> - Fallback value if the environment-specific value is missing.</p>
+</li>
+<li>
+<p><code># @key &lt;new_key&gt;</code> - Renames the configuration key.</p>
+</li>
+<li>
+<p><code># @required true|false</code> - Specifies whether the variable must be uncommented.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="example-input"><a class="anchor" href="#example-input"></a>Example Input</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">##
+# Database connection URL
+# @key db.url
+# @required true
+# @prod jdbc:postgresql://prod-db:5432/userdb
+# @dev jdbc:postgresql://dev-db:5432/userdb
+# @test jdbc:postgresql://test-db:5432/userdb
+# @all jdbc:postgresql://default-db:5432/userdb
+##
+my.database.connection=
+
+quarkus.multiconfig.target-environment=dev
+quarkus.multiconfig.selected-templates=cm,env,prop
+quarkus.multiconfig.cm-file-name=ConfigMap.yaml
+quarkus.multiconfig.env-file-name=.env
+quarkus.multiconfig.properties-file-name=application.properties
+quarkus.multiconfig.output-description=true
+quarkus.multiconfig.output-path=generated-sources/config-files</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="generated-files"><a class="anchor" href="#generated-files"></a>Generated Output Files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Based on the example input and selected templates, the following files are generated:</p>
+</div>
+<div class="sect2">
+<h3 id="_example_configmap_yaml"><a class="anchor" href="#_example_configmap_yaml"></a>Example <code>ConfigMap.yaml</code></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+data:
+  #--- Database connection URL ---#
+  db.url: jdbc:postgresql://dev-db:5432/userdb</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_env"><a class="anchor" href="#_example_env"></a>Example <code>.env</code></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-env hljs" data-lang="env"># !!! Uncomment and set value(s) if override is required !!!
+#--- Database connection URL ---#
+DB_URL=jdbc:postgresql://dev-db:5432/userdb</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_application_properties"><a class="anchor" href="#_example_application_properties"></a>Example <code>application.properties</code></h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">#--- Database connection URL ---#
+db.url=jdbc:postgresql://dev-db:5432/userdb</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="notes"><a class="anchor" href="#notes"></a>Additional Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>If no environment-specific value is defined and no fallback (<code>@all</code>) is provided, the variable will be skipped.</p>
+</li>
+<li>
+<p>Generated files are placed inside the directory specified by <code>quarkus.multiconfig.output-path</code>.</p>
+</li>
+<li>
+<p>Each file type uses a different template to match its intended use case (for Kubernetes, Docker, Quarkus).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
