@@ -1,7 +1,0 @@
-# Intellij IDEA settings
-.idea/
-*.iml
-
-# Maven generated files
-target/
-pom.xml.lock
