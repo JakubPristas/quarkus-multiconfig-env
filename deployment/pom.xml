@@ -4,11 +4,11 @@
 
     <parent>
         <groupId>org.jpristas.thesis</groupId>
-        <artifactId>quarkus-multiconfig-env-parent</artifactId>
+        <artifactId>quarkus-multiconfig-parent</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>quarkus-multiconfig-env-deployment</artifactId>
-    <name>Quarkus Multiconfig Env - Deployment</name>
+    <artifactId>quarkus-multiconfig-deployment</artifactId>
+    <name>Quarkus Multiconfig - Deployment</name>
 
     <dependencies>
         <dependency>
@@ -17,13 +17,33 @@
         </dependency>
         <dependency>
             <groupId>org.jpristas.thesis</groupId>
-            <artifactId>quarkus-multiconfig-env</artifactId>
+            <artifactId>quarkus-multiconfig</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.quarkus</groupId>
             <artifactId>quarkus-junit5-internal</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-junit5-mockito</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-qute-deployment</artifactId>
+            <version>${quarkus.version}</version>
         </dependency>
     </dependencies>
 

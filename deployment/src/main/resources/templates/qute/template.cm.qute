@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-config
+data:
+{#for env in envVars}
+{#if env.description??}
+  #--- {env.description} ---#
+{/if}
+{#if env.required}
+  {env.originalName}: {env.prodValue}
+{#else}
+#  {env.originalName}: {env.prodValue}
+{/if}
+{/for}
